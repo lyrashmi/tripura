@@ -1,0 +1,90 @@
+<!-- 1. Prevent White Flash (Runs immediately before page paints) -->
+<script>
+  (function() {
+    const saved = localStorage.getItem('theme');
+    //const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+    //else if (systemDark) document.documentElement.setAttribute('data-theme', 'dark');
+  })();
+</script>
+
+<!-- 2. Night Mode CSS -->
+<style>
+[data-theme="dark"] {
+    --cream-bg: #16120e; --cream-deep: #1c1712; --card-bg: #231e18;
+    --input-bg: #2a241d; --output-bg: #231e18; --gold-100: #2a241d;
+    --gold-200: #3d3220; --gold-300: #5c4a28; --gold-400: #8a6512;
+    --gold-500: #d4af37; --gold-600: #e3c987; --gold-700: #f0dfa6;
+    --gold-800: #fffdf8; --ink: #e8dcc8; --ink-soft: #cbbba0;
+    --ink-muted: #9c8d6f; --line: rgba(212, 175, 55, 0.25);
+    --line-soft: rgba(212, 175, 55, 0.15); --line-strong: rgba(212, 175, 55, 0.45);
+    --shadow-card: 0 1px 2px rgba(0,0,0,0.3), 0 12px 40px rgba(0,0,0,0.5);
+    --shadow-soft: 0 2px 10px rgba(0,0,0,0.4);
+}
+[data-theme="dark"] body {
+    background: radial-gradient(1100px 520px at 50% -140px, rgba(212, 175, 55, 0.08), transparent 65%),
+                radial-gradient(900px 480px at 50% 115%, rgba(201, 151, 31, 0.06), transparent 70%),
+                linear-gradient(180deg, #1e1914 0%, var(--cream-bg) 45%, var(--cream-deep) 100%);
+}
+[data-theme="dark"] ::selection { background: rgba(212, 175, 55, 0.45); color: #1a1612; }
+[data-theme="dark"] ::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.35); }
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover { background: rgba(212, 175, 55, 0.55); }
+[data-theme="dark"] .tool-cta { color: #1a1612; background: linear-gradient(135deg, var(--gold-500), var(--gold-300)); }
+[data-theme="dark"] .tool-card:hover .tool-cta { box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3), inset 0 1px 0 rgba(255,255,255,0.2); }
+
+/* --- NEW FIXES FOR THE TITHI PAGE --- */
+/* Fixes the hardcoded #fdf6e3 on the "City" button and Tabs */
+[data-theme="dark"] .tab.active,
+[data-theme="dark"] .segbtn.active {
+    background: linear-gradient(135deg, var(--gold-300), var(--gold-200));
+    color: var(--ink);
+}
+
+/* Fixes the hardcoded #fffdf6 text and gradient on "Cast the sky" */
+[data-theme="dark"] .btn-primary {
+    color: #1a1612; 
+    background: linear-gradient(135deg, var(--gold-500), var(--gold-300));
+}
+[data-theme="dark"] .btn-primary:hover {
+    box-shadow: 0 8px 22px rgba(212, 175, 55, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.theme-toggle {
+    position: fixed; top: 28px; right: 24px; background: var(--card-bg);
+    border: 1px solid var(--line); border-radius: 50%; width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    color: var(--gold-600); box-shadow: var(--shadow-soft); transition: all 0.3s ease; z-index: 100;
+}
+.theme-toggle:hover { transform: translateY(-2px) scale(1.05); border-color: var(--line-strong); }
+[data-theme="dark"] .theme-toggle { color: var(--gold-400); }
+.theme-toggle svg { position: absolute; transition: opacity 0.3s ease, transform 0.3s ease; }
+.icon-sun { opacity: 1; transform: rotate(0); }
+.icon-moon { opacity: 0; transform: rotate(90deg); }
+[data-theme="dark"] .icon-sun { opacity: 0; transform: rotate(-90deg); }
+[data-theme="dark"] .icon-moon { opacity: 1; transform: rotate(0); }
+</style>
+
+<!-- 3. Automatically Inject the Toggle Button -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Find the brand wrapper, or fall back to the body if it doesn't exist
+    const target = document.querySelector('.brand-wrap') || document.body;
+    const btn = document.createElement('button');
+    btn.className = 'theme-toggle';
+    btn.setAttribute('aria-label', 'Toggle night mode');
+    
+    btn.onclick = function() {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    };
+    
+    // Sun and Moon SVG Icons
+    btn.innerHTML = `
+      <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    `;
+    target.appendChild(btn);
+  });
+</script>
