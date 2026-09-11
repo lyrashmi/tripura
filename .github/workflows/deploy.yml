@@ -1,15 +1,34 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Netcup VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /var/www/tripura
+            set -e  # ⚠️ This line forces the Action to turn RED if Git fails
             
-            # 1. Tell Git to ignore permission changes (prevents the block)
+            cd /var/www/tripura
             git config core.filemode false
             
-            # 2. Fetch and FORCE the server to match GitHub exactly
+            echo "Fetching latest code from GitHub..."
             git fetch origin
-            git reset --hard origin/main  # ⚠️ Change 'main' to 'master' if your branch is master
             
-            # 3. Re-apply the permissions for Nginx
+            echo "Forcing server to match GitHub main branch..."
+            git reset --hard origin/main
+            
             chown -R www-data:www-data /var/www/tripura
             chmod -R 755 /var/www/tripura
             
-            echo "Deployment actually successful!"
+            echo "✅ Deployment actually finished successfully!"
