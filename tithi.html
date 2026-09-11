@@ -1582,7 +1582,7 @@ $('mapSearch').addEventListener('click', async () => {
 /* ══════════════ WIRING ══════════════ */
 const birthLoc = buildLoc($('birthLoc'), {
   label:'Birth place',
-  ph:'e.g. Chennai, or “Rishikesh, Uttarakhand”',
+  ph:'e.g. Chennai, or “Rishikesh',
   defaultTz:'Asia/Kolkata',
   hint:'Type any town — it is matched against the built-in gazetteer, then OpenStreetMap. The timezone follows the place.'
 });
@@ -1590,7 +1590,7 @@ const currLoc = buildLoc($('currLoc'), {
   label:'Current place',
   ph:'e.g. London',
   defaultTz:'Europe/London',
-  hint:'Where you are now — used only to anchor the sunrise day of the Praveśa.'
+  hint:'Where you are now - used only to anchor the sunrise day of the Praveśa.'
 });
 
 $('cityList').innerHTML = CITIES.map(c => `<option value="${c[0]}">`).join('');
