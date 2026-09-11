@@ -40,6 +40,13 @@
     color: var(--ink);
 }
 
+/* Fix for active direction labels in dark mode */
+[data-theme="dark"] .direction-label.active {
+    color: #1a1612; 
+    background: linear-gradient(135deg, var(--gold-500), var(--gold-300));
+    border-color: var(--gold-400);
+}
+
 /* Fixes the hardcoded #fffdf6 text and gradient on "Cast the sky" */
 [data-theme="dark"] .btn-primary {
     color: #1a1612; 
