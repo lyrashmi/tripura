@@ -1,0 +1,22 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main  # ⚠️ Change this to 'master' if your default branch is named master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Netcup VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /var/www/tripura
+            git pull origin main
+            echo "Deployment successful!"
