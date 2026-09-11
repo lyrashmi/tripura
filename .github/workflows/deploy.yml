@@ -1,22 +1,15 @@
-name: Deploy to VPS
-
-on:
-  push:
-    branches:
-      - main  # ⚠️ Change this to 'master' if your default branch is named master
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to Netcup VPS
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          port: ${{ secrets.SSH_PORT }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /var/www/tripura
-            git pull origin main
-            echo "Deployment successful!"
+            
+            # 1. Tell Git to ignore permission changes (prevents the block)
+            git config core.filemode false
+            
+            # 2. Fetch and FORCE the server to match GitHub exactly
+            git fetch origin
+            git reset --hard origin/main  # ⚠️ Change 'main' to 'master' if your branch is master
+            
+            # 3. Re-apply the permissions for Nginx
+            chown -R www-data:www-data /var/www/tripura
+            chmod -R 755 /var/www/tripura
+            
+            echo "Deployment actually successful!"
