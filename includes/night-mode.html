@@ -56,6 +56,17 @@
     box-shadow: 0 8px 22px rgba(212, 175, 55, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
+/* Fix for the swap direction button in dark mode */
+[data-theme="dark"] .swap-btn {
+    color: #1a1612;
+    background: linear-gradient(135deg, var(--gold-500), var(--gold-300));
+    box-shadow: 0 4px 14px rgba(212, 175, 55, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="dark"] .swap-btn:hover {
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
 .theme-toggle {
     position: fixed; top: 28px; right: 24px; background: var(--card-bg);
     border: 1px solid var(--line); border-radius: 50%; width: 44px; height: 44px;
