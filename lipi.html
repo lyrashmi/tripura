@@ -575,7 +575,6 @@ const devToIastMap = {
     '।':'।','॥':'॥'
 };
 
-const conjunctDevToIast = { 'क्ष':'kṣa','त्र':'tra','ज्ञ':'jña','श्र':'śra' };
 
 const iastToDevMap = {
     'a':'अ','ā':'आ','i':'इ','ī':'ई','u':'उ','ū':'ऊ',
@@ -614,31 +613,23 @@ function devanagariToIAST(input) {
     let result = '';
     let i = 0;
     while (i < input.length) {
-        let found = false;
-        if (i + 2 < input.length) {
-            const three = input.substring(i, i + 3);
-            if (conjunctDevToIast[three]) { result += conjunctDevToIast[three]; i += 3; found = true; }
-        }
-        if (!found) {
-            const ch = input[i];
-            if (devToIastMap[ch] !== undefined) {
-                const mapped = devToIastMap[ch];
-                if (isConsonant(ch)) {
-                    result += mapped;
-                    if (i + 1 < input.length && input[i + 1] === '्') { i += 2; continue; }
-                    if (i + 1 < input.length && isMatra(input[i + 1])) { i++; continue; }
-                    if (i + 1 < input.length && (input[i + 1] === 'ं' || input[i + 1] === 'ँ' || input[i + 1] === 'ः')) { result += 'a'; i++; continue; }
-                    if (i + 1 >= input.length || !isDevanagari(input[i + 1]) || isConsonant(input[i + 1]) || isIndependentVowel(input[i + 1])) { result += 'a'; }
-                } else {
-                    result += mapped;
-                }
-            } else { result += ch; }
-            i++;
-        }
+        const ch = input[i];
+        if (devToIastMap[ch] !== undefined) {
+            const mapped = devToIastMap[ch];
+            if (isConsonant(ch)) {
+                result += mapped;
+                if (i + 1 < input.length && input[i + 1] === '्') { i += 2; continue; }
+                if (i + 1 < input.length && isMatra(input[i + 1])) { i++; continue; }
+                if (i + 1 < input.length && (input[i + 1] === 'ं' || input[i + 1] === 'ँ' || input[i + 1] === 'ः')) { result += 'a'; i++; continue; }
+                if (i + 1 >= input.length || !isDevanagari(input[i + 1]) || isConsonant(input[i + 1]) || isIndependentVowel(input[i + 1])) { result += 'a'; }
+            } else {
+                result += mapped;
+            }
+        } else { result += ch; }
+        i++;
     }
     return result;
 }
-
 function iastToDevanagari(input) {
     let result = '';
     let i = 0;
