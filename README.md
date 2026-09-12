@@ -5,7 +5,7 @@ Deploy using nginx.
 `sudo apt install nginx -y`
 `systemctl status nginx`
 
-For SEO and sitemap update scripts node.js and npm is required.
+For SEO and sitemap generation and update scripts node.js and npm is required.
 `sudo apt install nodejs npm -y`
 
 ## Enable caching for images and script heavy code
