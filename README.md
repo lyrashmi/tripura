@@ -9,13 +9,14 @@
 Include inside the server block of `/etc/nginx/sites-available/default`.
 Check cash control is activated with `curl -I https://tripura.io/static/styles.css`
 
-# Enable brotly caching
+# Caching and file reduction for JSON dictionary
+## Enable brotly caching
 
 `brotli on;
 brotli_comp_level 6;
 brotli_types text/plain text/css application/json application/javascript text/xml;`
 
-# And file compression
+## And file compression
 
 `gzip on;
 gzip_comp_level 6;
