@@ -26,7 +26,9 @@ Check cache-control is set to "**public, immutable**" and content type is "**tex
 `brotli_comp_level 6;`
 `brotli_types text/plain text/css application/json application/javascript text/xml;`
 
-### And file compression
+Also add `location ~* \.json$ { expires 1y; add_header Cache-Control "public, immutable"; }` in the server block of `/etc/nginx/sites-available/default` to enable cache control for the JSON dictionary. 
+
+### Enable file compression
 
 `gzip on;`
 `gzip_comp_level 6;`
@@ -34,9 +36,11 @@ Check cache-control is set to "**public, immutable**" and content type is "**tex
 
 Include inside the http block of `/etc/nginx/nginx.conf`. This ensures the 90mb dictionary .JSON does not download on every request and manages its filesize.
 
-Also check whether mime.types is activated `include /etc/nginx/mime.types;` in the same http block. As well as the includes `include /etc/nginx/conf.d/*.conf;` `include /etc/nginx/sites-enabled/*;`.
+## Additional nginx settings
 
-Also add `location ~* \.json$ { expires 1y; add_header Cache-Control "public, immutable"; }` in the server block of `/etc/nginx/sites-available/default` to enable cache control for the JSON dictionary. 
+Also check whether mime.types is activated `include /etc/nginx/mime.types;` in the same http block. 
+
+As well as the includes `include /etc/nginx/conf.d/*.conf;` `include /etc/nginx/sites-enabled/*;`.
 
 ## Enable SSI to serve the includes
 Also enable SSI outside the server block of `/etc/nginx/sites-available/default` by using `location / {
