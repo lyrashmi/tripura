@@ -289,7 +289,13 @@ textarea:focus {
     border-color: var(--line-strong);
     box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.14), var(--shadow-soft);
 }
-textarea::placeholder { color: var(--ink-muted); opacity: .75; font-style: italic; }
+textarea::placeholder {
+    color: var(--ink-muted);
+    opacity: .75;
+    font-style: italic;
+    font-family: var(--font-latin) !important; /* Forces EB Garamond for all placeholders */
+    font-size: 1.28rem;
+}
 textarea[readonly] { cursor: default; }
 
 textarea.latin-font {
