@@ -405,10 +405,29 @@ input#searchInput::placeholder { color: var(--ink-muted); opacity: .75; font-sty
     line-height: 1.45;
     letter-spacing: 0;
 }
+/* Devanagari Headword */
+.hw-dev {
+    font-family: var(--font-dev);
+    font-size: 1.3rem; /* Slightly smaller than the 1.48rem IAST */
+    font-weight: 400;
+    color: var(--ink-soft); /* A softer, muted brown to not compete with the gold IAST */
+    margin-left: 18px;
+    padding-left: 18px;
+    border-left: 1px solid var(--line-soft);
+    line-height: 1.45;
+    display: inline-block;
+    vertical-align: baseline;
+}
 .entry.cont .hw {
     font-size: 1.16rem;
     font-weight: 500;
     color: var(--gold-600);
+}
+/* Adjust size for continuation senses */
+.entry.cont .hw-dev {
+    font-size: 1.05rem;
+    margin-left: 14px;
+    padding-left: 14px;
 }
 .entry.cont .entry-head { margin-bottom: 4px; }
 
@@ -541,6 +560,17 @@ input#searchInput::placeholder { color: var(--ink-muted); opacity: .75; font-sty
     .entry.cont { padding: 12px 2px 14px 18px; }
     .entry-body, .entry-body * { font-size: 1rem; line-height: 1.85; }
     input#searchInput { font-size: 1.15rem; padding: 15px 18px; }
+    .hw-dev {
+        font-size: 1.15rem;
+        margin-left: 12px;
+        padding-left: 12px;
+    }
+    .entry.cont .hw-dev {
+        font-size: 0.95rem;
+        margin-left: 10px;
+        padding-left: 10px;
+    }
+
 }
 </style>
 <!--# include virtual="/includes/night-mode.html" -->
@@ -816,10 +846,23 @@ function buildEntry(idx, hlPats) {
     var head = document.createElement('div');
     head.className = 'entry-head';
 
+    // 1. Get the clean IAST text
+    var hwIastText = cleanKey(e.key2 || e.key1);
+
+    // 2. Create the main IAST headword
     var hw = document.createElement('span');
     hw.className = 'hw';
-    hw.textContent = cleanKey(e.key2 || e.key1);
+    hw.textContent = hwIastText;
     head.appendChild(hw);
+
+    // 3. Create the Devanagari headword and append it
+    if (hwIastText) {
+        var hwDev = document.createElement('span');
+        hwDev.className = 'hw-dev';
+        hwDev.textContent = iastToDevanagari(hwIastText);
+        head.appendChild(hwDev);
+    }
+
 
     var sp = document.createElement('span');
     sp.className = 'spacer';
