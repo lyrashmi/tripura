@@ -587,138 +587,8 @@ input#searchInput::placeholder { color: var(--ink-muted); opacity: .75; font-sty
 <div class="toast" id="toast">Copied to clipboard</div>
 
 <script>
-/* ================= DEVANĀGARĪ → IAST (enables typing/searching in Devanāgarī) ================= */
+<!--# include virtual="/includes/transliteration-engine.js" -->
 
-var devToIastMap = {
-    'अ':'a','आ':'ā','इ':'i','ई':'ī','उ':'u','ऊ':'ū',
-    'ऋ':'ṛ','ॠ':'ṝ','':'ḷ','ॡ':'ḹ',
-    'ए':'e','ऐ':'ai','ओ':'o','औ':'au',
-    'ा':'ā','ि':'i','ी':'ī','ु':'u','ू':'ū',
-    'ृ':'ṛ','ॄ':'ṝ','ॢ':'ḷ','ॣ':'ḹ',
-    'े':'e','ै':'ai','ो':'o','ौ':'au',
-    'क':'k','ख':'kh','ग':'g','घ':'gh','ङ':'ṅ',
-    'च':'c','छ':'ch','ज':'j','झ':'jh','ञ':'ñ',
-    'ट':'ṭ','ठ':'ṭh','ड':'ḍ','ढ':'ḍh','ण':'ṇ',
-    'त':'t','थ':'th','द':'d','ध':'dh','न':'n',
-    'प':'p','फ':'ph','ब':'b','भ':'bh','म':'m',
-    'य':'y','र':'r','ल':'l','व':'v',
-    'श':'ś','ष':'ṣ','स':'s','ह':'h',
-    'ं':'ṃ','ः':'','ऽ':"'",'ँ':'m̐',
-    '्':'','़':'',
-    '०':'0','१':'1','२':'2','३':'3','४':'4','५':'5','६':'6','७':'7','८':'8','९':'9'
-};
-
-var conjunctDevToIast = { 'क्ष':'kṣa','त्र':'tra','ज्ञ':'jña','श्र':'śra' };
-var CONSONANT_SET = 'कखगघङचछजझञटठडढणतथदधनपफबभमयरलवशषसह';
-var MATRA_SET = 'ािीुूृॄॢॣेैोौ';
-var VOWEL_SET = 'अआइईउऊऋॠॡएऐओऔ';
-
-function isConsonant(ch) { return ch !== '' && CONSONANT_SET.indexOf(ch) > -1; }
-function isMatra(ch) { return ch !== '' && MATRA_SET.indexOf(ch) > -1; }
-function isIndependentVowel(ch) { return ch !== '' && VOWEL_SET.indexOf(ch) > -1; }
-function isDevanagariChar(ch) { var c = ch.charCodeAt(0); return c >= 0x0900 && c <= 0x097F; }
-
-function devanagariToIAST(input) {
-    var result = '';
-    var i = 0;
-    while (i < input.length) {
-        var found = false;
-        if (i + 2 < input.length) {
-            var three = input.substring(i, i + 3);
-            if (conjunctDevToIast[three]) { result += conjunctDevToIast[three]; i += 3; found = true; }
-        }
-        if (!found) {
-            var ch = input[i];
-            if (devToIastMap[ch] !== undefined) {
-                var mapped = devToIastMap[ch];
-                if (isConsonant(ch)) {
-                    result += mapped;
-                    if (i + 1 < input.length && input[i + 1] === '्') { i += 2; continue; }
-                    if (i + 1 < input.length && isMatra(input[i + 1])) { i++; continue; }
-                    if (i + 1 < input.length && (input[i + 1] === 'ं' || input[i + 1] === 'ँ' || input[i + 1] === 'ः')) { result += 'a'; i++; continue; }
-                    if (i + 1 >= input.length || !isDevanagariChar(input[i + 1]) || isConsonant(input[i + 1]) || isIndependentVowel(input[i + 1])) { result += 'a'; }
-                } else {
-                    result += mapped;
-                }
-            } else { result += ch; }
-            i++;
-        }
-    }
-    return result;
-}
-
-/* ================= SLP1 → IAST (the Cologne encoding used inside <s> tags) ================= */
-
-var SLP_VOWELS = 'aAiIuUfFxXeEoO';
-var slpMap = {
-    'a':'a','A':'ā','i':'i','I':'ī','u':'u','U':'ū',
-    'f':'ṛ','F':'ṝ','x':'ḷ','X':'ḹ',
-    'e':'e','E':'ai','o':'o','O':'au',
-    'k':'k','K':'kh','g':'g','G':'gh',
-    'c':'c','C':'ch','j':'j','J':'jh','Y':'ñ',
-    'w':'ṭ','W':'ṭh','q':'ḍ','Q':'ḍh','R':'ṇ',
-    't':'t','T':'th','d':'d','D':'dh','n':'n',
-    'p':'p','P':'ph','b':'b','B':'bh','m':'m',
-    'y':'y','r':'r','l':'l','v':'v',
-    'S':'ś','z':'ṣ','s':'s','h':'h',
-    'M':'ṃ','H':'ḥ',"'":"'",'~':'m̐'
-};
-
-var iastToSlpMap = {};
-(function () {
-    for (var k in slpMap) {
-        if (Object.prototype.hasOwnProperty.call(slpMap, k)) {
-            var v = slpMap[k];
-            if (!Object.prototype.hasOwnProperty.call(iastToSlpMap, v)) iastToSlpMap[v] = k;
-        }
-    }
-})();
-
-function slpToIast(str) {
-    if (!str) return '';
-    var out = '';
-    for (var i = 0; i < str.length; i++) {
-        var ch = str[i];
-        if (ch === 'f') {
-            var prev = i > 0 ? str[i - 1] : '';
-            var next = i + 1 < str.length ? str[i + 1] : '';
-            if (SLP_VOWELS.indexOf(prev) > -1 && 'kKgG'.indexOf(next) > -1) { out += 'ṅ'; continue; }
-            out += 'ṛ';
-            continue;
-        }
-        out += (slpMap[ch] !== undefined) ? slpMap[ch] : ch;
-    }
-    return out;
-}
-
-function iastToSlp(str) {
-    var out = '';
-    for (var i = 0; i < str.length; i++) {
-        var two = str.substr(i, 2);
-        if (iastToSlpMap[two] !== undefined) { out += iastToSlpMap[two]; i++; }
-        else if (iastToSlpMap[str[i]] !== undefined) { out += iastToSlpMap[str[i]]; }
-        else out += str[i];
-    }
-    return out;
-}
-
-/* ================= MARKUP REPAIR =================
-   The JSON was produced by converting each XML opening tag into a <span>,
-   which left the original closing tags behind (</s>, </lex>, …). Those
-   stray closers are ignored by the browser, so every span stayed open and
-   its styling bled into the rest of the entry. This repairs the markup so
-   each span is properly opened and closed, and drops metadata carriers. */
-function repairBody(html) {
-    var s = String(html == null ? '' : html);
-    /* self-closing carriers: <span class="info" …/> , <span class="srs"/> */
-    s = s.replace(/<span class="[A-Za-z0-9_]+"[^>]*\/>/g, '');
-    /* metadata carriers that survived as open tags, plus their closers */
-    s = s.replace(/<span class="(?:info|srs)"[^>]*>/g, '');
-    s = s.replace(/<\/(?:info|srs)>/g, '');
-    /* every remaining original closer becomes a real span closer */
-    s = s.replace(/<\/[A-Za-z][A-Za-z0-9_]*>/g, '</span>');
-    return s;
-}
 
 /* ================= HELPERS ================= */
 
@@ -731,6 +601,7 @@ function escapeRe(s) { return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); 
 function escapeHtml(s) {
     return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
+// Checks if a string contains Devanagari characters (uses regex on the whole string)
 function hasDevanagari(s) { return /[\u0900-\u097F]/.test(s); }
 function collapseSpaces(s) { return String(s).replace(/\s{2,}/g, ' '); }
 
@@ -821,6 +692,7 @@ function runSearch() {
 
         if (!raw) { renderEmpty(); updateStatus(0); return; }
 
+        // Uses devanagariToIAST() provided by your shared include file!
         var qIast = hasDevanagari(raw) ? devanagariToIAST(raw) : raw;
         var q1 = norm(qIast);
         var q2 = norm(slpToIast(qIast));
@@ -923,7 +795,7 @@ function renderResults() {
             wrap.className = 'load-more-wrap';
             var btn = document.createElement('button');
             btn.className = 'clear-btn';
-            btn.id = 'loadMoreBtn';
+            btn.id = 'loadMoreButton';
             btn.textContent = 'Reveal more · ' + (matches.length - shown) + ' remaining';
             wrap.appendChild(btn);
             resultsInner.appendChild(wrap);
@@ -1078,7 +950,7 @@ pasteBtn.addEventListener('click', function () {
 });
 
 document.querySelector('.results-panel').addEventListener('click', function (e) {
-    var lm = e.target.closest ? e.target.closest('#loadMoreBtn') : null;
+    var lm = e.target.closest ? e.target.closest('#loadMoreButton') : null;
     if (lm) { shown += 50; renderResults(); return; }
 
     var btn = e.target.closest ? e.target.closest('.copy-entry') : null;

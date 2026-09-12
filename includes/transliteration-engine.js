@@ -133,3 +133,76 @@ function iastToDevanagari(input) {
     }
     return result;
 }
+
+/* ================= SLP1 → IAST (the Cologne encoding used inside <s> tags) ================= */
+
+const SLP_VOWELS = 'aAiIuUfFxXeEoO';
+const slpMap = {
+    'a':'a','A':'ā','i':'i','I':'ī','u':'u','U':'ū',
+    'f':'ṛ','F':'ṝ','x':'ḷ','X':'ḹ',
+    'e':'e','E':'ai','o':'o','O':'au',
+    'k':'k','K':'kh','g':'g','G':'gh',
+    'c':'c','C':'ch','j':'j','J':'jh','Y':'ñ',
+    'w':'ṭ','W':'ṭh','q':'ḍ','Q':'ḍh','R':'ṇ',
+    't':'t','T':'th','d':'d','D':'dh','n':'n',
+    'p':'p','P':'ph','b':'b','B':'bh','m':'m',
+    'y':'y','r':'r','l':'l','v':'v',
+    'S':'ś','z':'ṣ','s':'s','h':'h',
+    'M':'ṃ','H':'ḥ',"'":"'",'~':'m̐'
+};
+
+const iastToSlpMap = {};
+(function () {
+    for (const k in slpMap) {
+        if (Object.prototype.hasOwnProperty.call(slpMap, k)) {
+            const v = slpMap[k];
+            if (!Object.prototype.hasOwnProperty.call(iastToSlpMap, v)) iastToSlpMap[v] = k;
+        }
+    }
+})();
+
+function slpToIast(str) {
+    if (!str) return '';
+    let out = '';
+    for (let i = 0; i < str.length; i++) {
+        const ch = str[i];
+        if (ch === 'f') {
+            const prev = i > 0 ? str[i - 1] : '';
+            const next = i + 1 < str.length ? str[i + 1] : '';
+            if (SLP_VOWELS.indexOf(prev) > -1 && 'kKgG'.indexOf(next) > -1) { out += 'ṅ'; continue; }
+            out += 'ṛ';
+            continue;
+        }
+        out += (slpMap[ch] !== undefined) ? slpMap[ch] : ch;
+    }
+    return out;
+}
+
+function iastToSlp(str) {
+    let out = '';
+    for (let i = 0; i < str.length; i++) {
+        const two = str.substr(i, 2);
+        if (iastToSlpMap[two] !== undefined) { out += iastToSlpMap[two]; i++; }
+        else if (iastToSlpMap[str[i]] !== undefined) { out += iastToSlpMap[str[i]]; }
+        else out += str[i];
+    }
+    return out;
+}
+
+/* ================= MARKUP REPAIR =================
+   The JSON was produced by converting each XML opening tag into a <span>,
+   which left the original closing tags behind (</s>, </lex>, …). Those
+   stray closers are ignored by the browser, so every span stayed open and
+   its styling bled into the rest of the entry. This repairs the markup so
+   each span is properly opened and closed, and drops metadata carriers. */
+function repairBody(html) {
+    let s = String(html == null ? '' : html);
+    /* self-closing carriers: <span class="info" …/> , <span class="srs"/> */
+    s = s.replace(/<span class="[A-Za-z0-9_]+"[^>]*\/>/g, '');
+    /* metadata carriers that survived as open tags, plus their closers */
+    s = s.replace(/<span class="(?:info|srs)"[^>]*>/g, '');
+    s = s.replace(/<\/(?:info|srs)>/g, '');
+    /* every remaining original closer becomes a real span closer */
+    s = s.replace(/<\/[A-Za-z][A-Za-z0-9_]*>/g, '</span>');
+    return s;
+}
