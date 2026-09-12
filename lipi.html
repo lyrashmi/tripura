@@ -266,8 +266,22 @@ h1 {
 }
 .icon-btn svg { width: 16px; height: 16px; }
 
-footer{text-align:center;margin-top:25px;font-size:.86rem;color:var(--ink-muted);letter-spacing:.05em;line-height:1.8;}
-footer .dev{color:var(--gold-600);font-size:1rem;}
+footer {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 0.86rem;
+    color: var(--ink-muted);
+    letter-spacing: 0.05em;
+    line-height: 1.8;
+}
+footer .dev {
+    font-family: var(--font-dev); /* Forces Shobhika/Noto Sans Devanagari for the Om symbol */
+    color: var(--gold-600);
+    font-size: 1.15rem;
+    vertical-align: middle;
+    position: relative;
+    top: 2px; /* Increased slightly to match the visual weight of the homepage */
+}
 
 
 
