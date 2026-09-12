@@ -1,4 +1,4 @@
-// update-existing.js
+// update-existing.js - with Devanagari next to it
 const fs = require('fs');
 const path = require('path');
 const Sanscript = require('@sanskrit-coders/sanscript');
@@ -6,33 +6,29 @@ const Sanscript = require('@sanskrit-coders/sanscript');
 const OUT = '/var/www/tripura/word';
 
 for (const folder of fs.readdirSync(OUT)) {
-  const file = path.join(OUT, folder, 'index.html');
+  const dir = path.join(OUT, folder);
+  if (!fs.statSync(dir).isDirectory()) continue;
+  const file = path.join(dir, 'index.html');
   if (!fs.existsSync(file)) continue;
 
   let html = fs.readFileSync(file, 'utf8');
-  const m = html.match(/<h1>(.*?)<\/h1>/);
-  if (!m) continue;
-  const key1 = m[1]; // e.g. "a"
 
-  // key1 is Harvard-Kyoto -> convert
-  const iast = Sanscript.t(key1, 'hk', 'iast');
-  const deva = Sanscript.t(key1, 'hk', 'devanagari');
+  html = html.replace(/<span class="s">(.*?)<\/s>/gs, (full, inner) => {
+    const raw = inner.replace(/<[^>]+>/g, '').trim();
+    if (!raw || raw.length < 2) return full; // keep single "A"
 
-  // Update title + h1
-  html = html.replace(
-    /<title>.*?<\/title>/,
-    `<title>${iast} (${deva}) - Sanskrit Meaning | Monier-Williams | Tripura</title>`
-  );
-  html = html.replace(
-    /<h1>.*?<\/h1>/,
-    `<h1>${iast} <span style="color:#666">| ${deva} |</span> ${key1}</h1>`
-  );
-  // Also update json-ld name
-  html = html.replace(
-    /"name":".*?"/,
-    `"name":"${iast}"`
-  );
+    try {
+      const iast = Sanscript.t(raw, 'hk', 'iast');
+      const deva = Sanscript.t(raw, 'hk', 'devanagari');
+      
+      // This will become: ā-gacchati | आ-गच्छति |
+      return `<span class="s">${iast} <span style="color:#888;font-size:0.9em">| ${deva} |</span></span>`;
+    } catch {
+      return full;
+    }
+  });
 
   fs.writeFileSync(file, html);
 }
-console.log('Done updating 194k files');
+
+console.log('Done - added iast + devanagari');
