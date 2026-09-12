@@ -5,19 +5,20 @@
 /* ── Fonts: Shobhika (Devanagari) ─────────────────────────────── */
 @font-face {
     font-family: 'Shobhika';
-    src: url('https://huggingface.co/loopdesk-ai/lipika/resolve/main/fonts/shobhika-400.woff2') format('woff2'),
-         url('https://ir.tawkit.net/1app/font/IN-Shobhika.woff2') format('woff2');
+    /* Changed to local path! */
+    src: url('/static/fonts/shobhika-400.woff2') format('woff2');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
 }
 @font-face {
     font-family: 'Shobhika';
-    src: url('https://huggingface.co/loopdesk-ai/lipika/resolve/main/fonts/shobhika-700.woff2') format('woff2');
+    src: url('/static/fonts/shobhika-700.woff2') format('woff2');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
 }
+
 
 /* ── Reset ────────────────────────────────────────────────────── */
 * {
@@ -1623,8 +1624,7 @@ footer .om {
    everything else falls through to EB Garamond automatically */
 @font-face {
     font-family: 'Shobhika Devanagari';
-    src: url('https://huggingface.co/loopdesk-ai/lipika/resolve/main/fonts/shobhika-400.woff2') format('woff2'),
-         url('https://ir.tawkit.net/1app/font/IN-Shobhika.woff2') format('woff2');
+    src: url('/static/fonts/shobhika-400.woff2') format('woff2');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -1632,7 +1632,7 @@ footer .om {
 }
 @font-face {
     font-family: 'Shobhika Devanagari';
-    src: url('https://huggingface.co/loopdesk-ai/lipika/resolve/main/fonts/shobhika-700.woff2') format('woff2');
+    src: url('/static/fonts/shobhika-700.woff2') format('woff2');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
