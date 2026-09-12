@@ -38,9 +38,10 @@ Also check whether mime.types is activated `include /etc/nginx/mime.types;` in t
 
 Also add `location ~* \.json$ { expires 1y; add_header Cache-Control "public, immutable"; }` in the server block of `/etc/nginx/sites-available/default` to enable cache control for the JSON dictionary. 
 
-**Important**: also enable ssi outside the server block `location / {
+## Enable SSI to serve the includes
+Also enable ssi outside the server block of `/etc/nginx/sites-available/default` by using `location / {
                 ssi on;
-                try_files $uri $uri/ =404;`
+                try_files $uri $uri/ =404;`.
 
 Check and reload for all the above steps.
 `sudo nginx -t`
