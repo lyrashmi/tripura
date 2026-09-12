@@ -10,9 +10,7 @@
 </head>
 <body class="page-dict">
 
-<div class="brand-wrap">
-    <a class="brand" href="/">tripura<span class="io">.io</span></a>
-</div>
+<!--# include virtual="/includes/brand.html" -->
 
 <div class="container">
     <header>
@@ -45,12 +43,13 @@
     <div class="panel results-panel">
         <div id="resultsInner"></div>
     </div>
+
+<!--# set var="footer_text" value="tripura.io" -->
+<!--# include virtual="/includes/footer.html" -->
 </div>
 
-<div class="toast" id="toast">Copied to clipboard</div>
-
 <script>
-<!--# include virtual="/includes/transliteration-engine.js" -->
+<!--# include virtual="/static/transliteration-engine.js" -->
 
 
 /* ================= HELPERS ================= */
