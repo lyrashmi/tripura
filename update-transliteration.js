@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const Sanscript = require('@sanskrit-coders/sanscript');
 
-const OUT = '/var/tripura/word';
+const OUT = '/var/www/tripura/word';
 
 for (const folder of fs.readdirSync(OUT)) {
   const file = path.join(OUT, folder, 'index.html');
