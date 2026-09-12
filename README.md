@@ -1,4 +1,4 @@
-Include caching for images and script heavy code inside `/etc/nginx/sites-available/default` in the server block:
+####Enable caching for images and script heavy code
 
 `location /static/ {
     root /var/www/tripura/static/;
@@ -6,16 +6,18 @@ Include caching for images and script heavy code inside `/etc/nginx/sites-availa
     add_header Cache-Control "public, immutable";
 }`
 
-Enable brotly caching
+Include inside the server block of `/etc/nginx/sites-available/default`.
+
+####Enable brotly caching
 
 `brotli on;
 brotli_comp_level 6;
 brotli_types text/plain text/css application/json application/javascript text/xml;`
 
-And file compression
+####And file compression
 
 `gzip on;
 gzip_comp_level 6;
 gzip_types text/plain text/css application/json application/javascript text/xml application/x>`
 
-In the http block inside `/etc/nginx/nginx.conf`. This ensures the 90mb dictionary .JSON does not download on every request and manages its filesize.
+Include inside the http block of `/etc/nginx/nginx.conf`. This ensures the 90mb dictionary .JSON does not download on every request and manages its filesize.
