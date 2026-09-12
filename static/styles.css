@@ -116,7 +116,7 @@ body {
 .container {
     max-width: 1180px;
     margin: 0 auto;
-    padding: 16px 24px 64px;
+    padding: 8px 24px 64px;
 }
 
 /* ── Brand (Top Menu) ─────────────────────────────────────────── */
@@ -1438,7 +1438,7 @@ input[type=range] {
 
 /* Override global container padding for homepage spacing */
 .page-home .container {
-    padding: 26px 24px 56px;
+    padding: 8px 24px 56px;
 }
 
 /* Homepage Hero (Scoped to avoid colliding with Tithi Praveśa .hero) */
@@ -1595,7 +1595,7 @@ footer .om {
 
 @media (max-width: 820px) {
     .page-home .container {
-        padding: 20px 16px 40px;
+        padding: 8px 16px 40px;
     }
     .tools {
         grid-template-columns: 1fr;
