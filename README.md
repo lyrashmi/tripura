@@ -1,4 +1,5 @@
 Include caching for images and script heavy code inside `/etc/nginx/sites-available/default` in the server block:
+
 `location /static/ {
     root /var/www/tripura/static/;
     expires 7d;
@@ -6,11 +7,13 @@ Include caching for images and script heavy code inside `/etc/nginx/sites-availa
 }`
 
 Enable brotly caching
+
 `brotli on;
 brotli_comp_level 6;
 brotli_types text/plain text/css application/json application/javascript text/xml;`
 
 And file compression
+
 `gzip on;
 gzip_comp_level 6;
 gzip_types text/plain text/css application/json application/javascript text/xml application/x>`
