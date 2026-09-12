@@ -13,7 +13,7 @@ for (const folder of fs.readdirSync(OUT)) {
 
   let html = fs.readFileSync(file, 'utf8');
   
-  if (!html.includes('Search all 286,524')) continue;
+  if (!html.includes('Search all 286,525')) continue;
   
   // also handle 286,525 variant you have in some files
   html = html.replace(
