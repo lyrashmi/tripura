@@ -290,11 +290,13 @@ textarea:focus {
     box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.14), var(--shadow-soft);
 }
 textarea::placeholder {
-    color: var(--ink-muted);
-    opacity: .75;
-    font-style: italic;
-    font-family: var(--font-latin) !important; /* Forces EB Garamond for all placeholders */
-    font-size: 1.28rem;
+    color: var(--ink-muted) !important;
+    opacity: 0.75 !important;
+    font-style: italic !important;
+    font-family: 'EB Garamond', 'Georgia', serif !important; /* Explicit name instead of variable */
+    font-size: 1.28rem !important;
+    line-height: 1.9 !important; /* Matches latin-font to prevent vertical stretching */
+    letter-spacing: 0.015em !important; /* Matches latin-font for consistent spacing */
 }
 textarea[readonly] { cursor: default; }
 
