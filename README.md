@@ -34,6 +34,14 @@ Check cache-control is set to "**public, immutable**" and content type is "**tex
 
 Include inside the http block of `/etc/nginx/nginx.conf`. This ensures the 90mb dictionary .JSON does not download on every request and manages its filesize.
 
+Also check whether mime.types is activated `include /etc/nginx/mime.types;` in the same http block. As well as the includes `include /etc/nginx/conf.d/*.conf;` `include /etc/nginx/sites-enabled/*;`.
+
+Also add `location ~* \.json$ { expires 1y; add_header Cache-Control "public, immutable"; }` in the server block of `/etc/nginx/sites-available/default` to enable cache control for the JSON dictionary. 
+
+**Important**: also enable ssi outside the server block `location / {
+                ssi on;
+                try_files $uri $uri/ =404;`
+
 Check and reload for all the above steps.
 `sudo nginx -t`
 `sudo systemctl reload nginx`
