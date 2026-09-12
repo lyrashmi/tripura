@@ -7,10 +7,10 @@
 }`
 
 Include inside the server block of `/etc/nginx/sites-available/default`.
-Check cache-control is set to "public, immutable" and content type is "text/css" with `curl -I https://tripura.io/static/styles.css`
+Check cache-control is set to "**public, immutable**" and content type is "**text/css**" with `curl -I https://tripura.io/static/styles.css`
 
 # Caching and file reduction for JSON dictionary
-### Enable brotly caching
+### Enable brotli caching
 
 `brotli on;
 brotli_comp_level 6;
