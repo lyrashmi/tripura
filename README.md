@@ -24,8 +24,8 @@ For SEO and sitemap generation and update scripts node.js and npm is required.
 Inside the server block of `/etc/nginx/sites-available/default`. This enables cache control for the page scripts and images in /static, as well as the JSON dictionary.
 Check cache-control is set to "**public, immutable**" and content type is "**text/css**" via `curl -I https://tripura.io/static/styles.css`
 
-## Caching and file reduction for JSON dictionary
-### Enable brotli caching
+## Data compression for serving the JSON dictionary
+### Brotli
 
 `brotli on;`
 `brotli_comp_level 6;`
@@ -33,7 +33,7 @@ Check cache-control is set to "**public, immutable**" and content type is "**tex
 
 Include inside the http block of `/etc/nginx/nginx.conf`. This caches the JSON dictionary and does not download on every request
 
-### Enable file compression
+### Gzip fallback
 
 `gzip on;`
 `gzip_comp_level 6;`
