@@ -2,3 +2,6 @@
 <link rel="preload" href="/static/fonts/shobhika-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/static/fonts/shobhika-700.woff2" as="font" type="font/woff2" crossorigin>
 
+<!-- 2. Preload CSS (Prevents render-blocking warnings) -->
+<link rel="preload" href="/static/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/static/styles.css"></noscript>
