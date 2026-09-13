@@ -2,15 +2,14 @@
 <script>
   (function() {
     const saved = localStorage.getItem('theme');
-    //const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     if (saved) document.documentElement.setAttribute('data-theme', saved);
-    //else if (systemDark) document.documentElement.setAttribute('data-theme', 'dark');
   })();
 </script>
 
 <!-- 2. Night Mode CSS -->
 <style>
-[data-theme="dark"] {
+/* CHANGED: :root added to beat the specificity tie with styles.css */
+:root[data-theme="dark"] {
     --cream-bg: #16120e; --cream-deep: #1c1712; --card-bg: #231e18;
     --input-bg: #2a241d; --output-bg: #231e18; --gold-100: #2a241d;
     --gold-200: #3d3220; --gold-300: #5c4a28; --gold-400: #8a6512;
@@ -33,21 +32,16 @@
 [data-theme="dark"] .tool-card:hover .tool-cta { box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3), inset 0 1px 0 rgba(255,255,255,0.2); }
 
 /* --- NEW FIXES FOR THE TITHI PAGE --- */
-/* Fixes the hardcoded #fdf6e3 on the "City" button and Tabs */
 [data-theme="dark"] .tab.active,
 [data-theme="dark"] .segbtn.active {
     background: linear-gradient(135deg, var(--gold-300), var(--gold-200));
     color: var(--ink);
 }
-
-/* Fix for active direction labels in dark mode */
 [data-theme="dark"] .direction-label.active {
     color: #1a1612; 
     background: linear-gradient(135deg, var(--gold-500), var(--gold-300));
     border-color: var(--gold-400);
 }
-
-/* Fixes the hardcoded #fffdf6 text and gradient on "Cast the sky" */
 [data-theme="dark"] .btn-primary {
     color: #1a1612; 
     background: linear-gradient(135deg, var(--gold-500), var(--gold-300));
@@ -55,14 +49,11 @@
 [data-theme="dark"] .btn-primary:hover {
     box-shadow: 0 8px 22px rgba(212, 175, 55, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
-
-/* Fix for the swap direction button in dark mode */
 [data-theme="dark"] .swap-btn {
     color: #1a1612;
     background: linear-gradient(135deg, var(--gold-500), var(--gold-300));
     box-shadow: 0 4px 14px rgba(212, 175, 55, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
-
 [data-theme="dark"] .swap-btn:hover {
     box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
@@ -85,7 +76,6 @@
 <!-- 3. Automatically Inject the Toggle Button -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Find the brand wrapper, or fall back to the body if it doesn't exist
     const target = document.querySelector('.brand-wrap') || document.body;
     const btn = document.createElement('button');
     btn.className = 'theme-toggle';
@@ -98,7 +88,6 @@
       localStorage.setItem('theme', next);
     };
     
-    // Sun and Moon SVG Icons
     btn.innerHTML = `
       <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
       <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
