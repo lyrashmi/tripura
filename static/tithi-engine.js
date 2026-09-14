@@ -951,21 +951,6 @@ $('fYear').value = new Date().getFullYear();
 $('fBDate').max = new Date().toISOString().slice(0,10);
 $('fUseCurr').addEventListener('change', e => $('currBox').classList.toggle('hidden', !e.target.checked));
 
-$('tabBtnCalc').addEventListener('click', ()=>switchTab('calc'));
-$('tabBtnLearn').addEventListener('click', ()=>switchTab('learn'));
-function switchTab(which){
-  const calc = which === 'calc';
-  $('tabBtnCalc').classList.toggle('active', calc);
-  $('tabBtnLearn').classList.toggle('active', !calc);
-  $('tabCalc').classList.toggle('hidden', !calc);
-  $('tabLearn').classList.toggle('hidden', calc);
-  window.scrollTo({ top:0, behavior:'smooth' });
-}
-$('foldHead').addEventListener('click', ()=>{
-  $('foldBody').classList.toggle('open');
-  $('foldArrow').classList.toggle('open');
-});
-
 $('resetBtn').addEventListener('click', ()=>{
   $('fName').value = '';
   $('fBDate').value = '1990-01-01'; $('fBTime').value = '12:00';
