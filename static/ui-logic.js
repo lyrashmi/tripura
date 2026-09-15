@@ -9,31 +9,31 @@ document.addEventListener('DOMContentLoaded', () => {
   const $ = id => document.getElementById(id);
   
   /* ── Tab Switching Logic ─────────────────────────────────────────────── */
-  const tabBtnCalc = $('tabBtnCalc');
-  const tabBtnLearn = $('tabBtnLearn');
-  const tabCalc = $('tabCalc');
-  const tabLearn = $('tabLearn');
+  const tabBtnFirst = $('tabBtnFirst');
+  const tabBtnSecond = $('tabBtnSecond');
+  const tabFirst = $('tabFirst');
+  const tabSecond = $('tabSecond');
 
   // Only attach listeners if these elements actually exist on the page
-  if (tabBtnCalc && tabBtnLearn && tabCalc && tabLearn) {
+  if (tabBtnFirst && tabBtnSecond && tabFirst && tabSecond) {
     
     function switchTab(which) {
-      const isCalc = which === 'calc';
+      const isFirst = which === 'first';
       
       // Toggle button active states
-      tabBtnCalc.classList.toggle('active', isCalc);
-      tabBtnLearn.classList.toggle('active', !isCalc);
+      tabBtnFirst.classList.toggle('active', isFirst);
+      tabBtnSecond.classList.toggle('active', !isFirst);
       
       // Toggle content visibility
-      tabCalc.classList.toggle('hidden', !isCalc);
-      tabLearn.classList.toggle('hidden', isCalc);
+      tabFirst.classList.toggle('hidden', !isFirst);
+      tabSecond.classList.toggle('hidden', isFirst);
       
       // Smooth scroll to top of page
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    tabBtnCalc.addEventListener('click', () => switchTab('calc'));
-    tabBtnLearn.addEventListener('click', () => switchTab('learn'));
+    tabBtnFirst.addEventListener('click', () => switchTab('first'));
+    tabBtnSecond.addEventListener('click', () => switchTab('second'));
   }
 
   /* ── Foldable Section Logic (Accordion) ──────────────────────────────── */

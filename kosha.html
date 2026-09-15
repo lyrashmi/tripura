@@ -25,6 +25,18 @@
         <p class="subtitle">Sanskrit · English Dictionary</p>
     </header>
 
+    <div class="tabbar">
+    <button class="tab active" id="tabBtnFirst" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"/><path d="M16 13h2"/><path d="M16 9h2"/><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"/><path d="M6 13h2"/><path d="M6 9h2"/></svg>
+      Lexicon
+    </button>
+    <button class="tab" id="tabBtnSecond" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M10 15h4"/><path d="m14.817 10.995-.971-1.45 1.034-1.232a2 2 0 0 0-2.025-3.238l-1.82.364L9.91 3.885a2 2 0 0 0-3.625.748L6.141 6.55l-1.725.426a2 2 0 0 0-.19 3.756l.657.27"/><path d="m18.822 10.995 2.26-5.38a1 1 0 0 0-.557-1.318L16.954 2.9a1 1 0 0 0-1.281.533l-.924 2.122"/><path d="M4 12.006A1 1 0 0 1 4.994 11H19a1 1 0 0 1 1 1v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/></svg>
+      Tools
+    </button>
+  </div>
+  <!-- ══════════ Lexicon ══════════ -->
+<div id="tabFirst">
     <div class="panel main-panel">
         <div class="editor-header">
             <span class="editor-title">Search · Headwords &amp; Definitions</span>
@@ -47,14 +59,37 @@
     <div class="panel results-panel">
         <div id="resultsInner"></div>
     </div>
+</div>
 
+  <!-- ══════════ TOOLS ══════════ -->
+<div id="tabSecond" class="hidden">
+    <div class="panel pad" style="animation:rise .6s ease .06s both;">
+        <!-- Added id="foldHead" and flex styling for the arrow -->
+        <div class="sec-head" id="foldHead" style="display: flex; align-items: center; cursor: pointer;">
+            <span class="num">I</span>
+            <span class="sec-title">Māheśvara Sūtras</span>
+            <span class="sec-dev">माहेश्वरसूत्राणि</span>
+            <span class="sec-rule"></span>
+            
+            <!-- Added the collapsible arrow icon -->
+            <span class="fold-arrow" id="foldArrow" style="margin-left: auto;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </span>
+        </div>
+
+        <!-- Wrapped the include in the foldBody container -->
+        <div class="fold-body open" id="foldBody">
+            <!--# include virtual="/includes/maheshvara-sutras.html" -->
+        </div>
+    </div>
 <!--# set var="footer_text" value="tripura.io" -->
 <!--# include virtual="/includes/footer.html" -->
 </div>
 
 <script>
 <!--# include virtual="/static/transliteration-engine.js" -->
-
 
 /* ================= HELPERS ================= */
 
@@ -102,7 +137,7 @@ function showFatal(err) {
         '<div class="state error"><div class="gem-big"></div><h2>The lexicon could not be opened</h2>' +
         '<p>' + escapeHtml(msg) + '</p>' +
         '<p style="margin-top:14px">Make sure <code>dictionary.json</code> sits beside this file and that the folder is served locally, e.g. <code>python -m http.server 8000</code> → <code>http://localhost:8000</code>. Opening the page directly via <code>file://</code> blocks the data load.</p></div>';
-    statusText.textContent = 'Error — see message above';
+    statusText.textContent = 'Error - see message above';
 }
 
 window.addEventListener('error', function (ev) {
@@ -111,7 +146,7 @@ window.addEventListener('error', function (ev) {
 
 /* ================= LOAD & INDEX ================= */
 
-resultsInner.innerHTML = loaderHTML('Retrieving the lexicon…', 'Unrolling the Monier-Williams manuscript — a 50 MB file may take a few seconds.');
+resultsInner.innerHTML = loaderHTML('Retrieving the lexicon…', 'Unrolling the Monier-Williams manuscript - a 50 MB file may take a few seconds.');
 statusText.textContent = 'Loading lexicon…';
 
 fetch('dictionary.json')
@@ -239,7 +274,7 @@ function renderEmpty() {
 function renderNoMatch(q) {
     resultsInner.innerHTML =
         '<div class="state"><div class="gem-big"></div><h2>No entries found</h2>' +
-        '<p>Nothing answers to “' + escapeHtml(q) + '”. Try a shorter stem — for instance <em>dev</em> instead of <em>devatā</em>.</p></div>';
+        '<p>Nothing answers to “' + escapeHtml(q) + '”. Try a shorter stem - for instance <em>dev</em> instead of <em>devatā</em>.</p></div>';
 }
 
 function sectionLabel(text) {
@@ -339,7 +374,7 @@ function buildEntry(idx, hlPats) {
 }
 
 /* True when the entry opens with its own headword (or a homonym numeral),
-   false for continuation senses — those receive the MW "¦" divider. */
+   false for continuation senses - those receive the MW "¦" divider. */
 function startsWithHeadword(bodyEl) {
     var n = bodyEl.firstChild;
     while (n && n.nodeType === 3 && !n.nodeValue.trim()) n = n.nextSibling;
@@ -438,7 +473,7 @@ document.querySelector('.results-panel').addEventListener('click', function (e) 
     if (!art) return;
     var hwEl = art.querySelector('.hw');
     var bodyEl = art.querySelector('.entry-body');
-    var text = (hwEl ? hwEl.textContent : '') + ' — ' + (bodyEl ? collapseSpaces(bodyEl.innerText.replace(/\s+/g, ' ').trim()) : '');
+    var text = (hwEl ? hwEl.textContent : '') + ' - ' + (bodyEl ? collapseSpaces(bodyEl.innerText.replace(/\s+/g, ' ').trim()) : '');
     if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text)
             .then(function () { showToast('Entry copied to clipboard'); })
@@ -455,5 +490,9 @@ function showToast(msg) {
     showToast._t = setTimeout(function () { toast.classList.remove('show'); }, 2000);
 }
 </script>
+
+<!-- Generic UI Logic (Tabs, Folds) -->
+<script src="/static/ui-logic.js"></script>
+
 </body>
 </html>

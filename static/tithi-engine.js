@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════════════════════════════
-   TITHI PRAVEŚA — browser engine
+   TITHI PRAVEŚA - browser engine
    Astronomy : Schlyter/Meeus truncated series (Sun ~0.01°, Moon ~1–2′)
    Ayanāṃśa  : Lahiri / Chitrapākṣa
    Muhūrta   : classical tables, scaled to the real sunrise–sunset span
@@ -13,7 +13,7 @@ const rad    = x => x * D2R;
 const deg    = x => x * R2D;
 const clamp  = (x,a,b) => Math.max(a, Math.min(b, x));
 
-/* ══════════ UI helpers (defined first — everything below uses them) ══════════ */
+/* ══════════ UI helpers (defined first - everything below uses them) ══════════ */
 const $ = id => document.getElementById(id);
 const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 function toast(msg){
@@ -446,7 +446,7 @@ function vedicDay(utcMs, lat, lon, tz){
 }
 
 function fmtH(h){
-  if (h === null || h === undefined || !isFinite(h)) return '—';
+  if (h === null || h === undefined || !isFinite(h)) return '-';
   let suf = '';
   while (h >= 24){ h -= 24; suf = ' (+1)'; }
   while (h < 0){ h += 24; suf = ' (−1)'; }
@@ -683,7 +683,7 @@ function buildLoc(container, cfg){
     } else if (api.mode === 'coord' && c){
       res.innerHTML = `<b>${c.lat.toFixed(4)}, ${c.lon.toFixed(4)}</b> · ${tzS.value} · ${api.tzSrc}` + (extra ? ` · ${extra}` : '');
     } else if (api.mode === 'coord'){
-      res.innerHTML = 'Enter latitude and longitude — the timezone is detected automatically.';
+      res.innerHTML = 'Enter latitude and longitude - the timezone is detected automatically.';
     } else {
       res.innerHTML = cfg.hint;
     }
@@ -890,7 +890,7 @@ function makeSky(container, opts){
 /* ══════════════ MAP PICKER ══════════════ */
 let map = null, mapMarker = null, mapTarget = null, mapPending = null;
 function openMap(widget){
-  if (typeof L === 'undefined'){ toast('Map unavailable offline — use coordinates'); widget.setMode('coord'); return; }
+  if (typeof L === 'undefined'){ toast('Map unavailable offline - use coordinates'); widget.setMode('coord'); return; }
   mapTarget = widget;
   mapPending = (widget.lat !== null && widget.lat !== undefined) ? { lat: widget.lat, lng: widget.lon } : { lat: 20, lng: 78 };
   $('mapModal').classList.add('open');
@@ -970,9 +970,9 @@ $('resetBtn').addEventListener('click', ()=>{
     posFn: day => ({ sun: rev(day*SUN_RATE), moon: rev(day*MOON_RATE) }),
     statusFn: (day, info) => {
       const gap = info.gap, ni = info.ni, tt = info.tt, sun = info.sun;
-      if (day < 0.4) return '✦ <b>Amāvasyā</b> — Sun and Moon in the same direction, angle 0°. The wedge is closed, the Moon invisible.';
-      if (Math.abs(gap-180) < 5) return '✦ <b>Pūrṇimā</b> — Moon opposite the Sun, fully lit. The wedge has opened to 180°.';
-      if (Math.abs(gap-90) < 4 || Math.abs(gap-270) < 4) return '✦ Half-lit — the angle is 90° or 270°, a quarter of the lunar month gone.';
+      if (day < 0.4) return '✦ <b>Amāvasyā</b> - Sun and Moon in the same direction, angle 0°. The wedge is closed, the Moon invisible.';
+      if (Math.abs(gap-180) < 5) return '✦ <b>Pūrṇimā</b> - Moon opposite the Sun, fully lit. The wedge has opened to 180°.';
+      if (Math.abs(gap-90) < 4 || Math.abs(gap-270) < 4) return '✦ Half-lit - the angle is 90° or 270°, a quarter of the lunar month gone.';
       return `Day ${day.toFixed(1)} · Moon in ${NAK[ni][0]} · Sun in ${RASHI[Math.floor(sun/30)].en} · ${tt.paksha} ${tt.en}`;
     }
   });
@@ -985,7 +985,7 @@ $('castBtn').addEventListener('click', cast);
 async function cast(){
   const btn = $('castBtn');
   $('formErr').innerHTML = '';
-  const name = $('fName').value.trim() || '—';
+  const name = $('fName').value.trim() || '-';
   const bd = $('fBDate').value, bt = $('fBTime').value || '12:00';
   if (!bd){ showErr('Please choose a birth date.'); return; }
   const bp = bd.split('-').map(Number), by = bp[0], bm = bp[1], bdd = bp[2];
@@ -1047,7 +1047,7 @@ async function cast(){
       curStr = fmtInTz(pvMs, ctz);
       if (cDay){
         const cSun = sunTimes(cDay.y, cDay.m, cDay.d, C.lat, C.lon, cDay.tzH);
-        curStr += ` <small>vāra ${VARA[localDow(cDay.riseMs, cDay.tzH)][0]} · sunrise ${cSun ? fmtH(cSun.riseH) : '—'}</small>`;
+        curStr += ` <small>vāra ${VARA[localDow(cDay.riseMs, cDay.tzH)][0]} · sunrise ${cSun ? fmtH(cSun.riseH) : '-'}</small>`;
       }
     }
 
@@ -1097,7 +1097,7 @@ function renderReport(R){
   const pvLocalYear = new Date(pvMs + R.bTzH*3600000).getUTCFullYear();
   if (pvLocalYear !== year){
     const dd = new Date(pvMs + R.bTzH*3600000);
-    html += `<div class="banner warn">Note — the Praveśa nearest the ${year} solar return falls on
+    html += `<div class="banner warn">Note - the Praveśa nearest the ${year} solar return falls on
       ${String(dd.getUTCDate()).padStart(2,'0')} ${MON[dd.getUTCMonth()]} ${dd.getUTCFullYear()}, because no
       ${t0.en} beginning falls inside calendar ${year} while the Sun is in ${RASHI[pv.r0].en}.</div>`;
   }
@@ -1155,7 +1155,7 @@ function renderReport(R){
       ${row('Nakṣatra', devSpan(`${n0.en} pāda ${n0.pada}`, n0.dev))}
       ${row('Yoga', devSpan(y0.en, y0.dev))}
       ${row('Karaṇa', devSpan(k0.en, k0.dev))}
-      ${row('Sunrise / sunset', R.birthSun ? fmtRange(R.birthSun.riseH, R.birthSun.setH) : '—')}
+      ${row('Sunrise / sunset', R.birthSun ? fmtRange(R.birthSun.riseH, R.birthSun.setH) : '-')}
       ${row('Moon mansion', `${n0.glyph} ${(360/27).toFixed(2)}° wide`)}
     </div>
   </div>`;
@@ -1180,7 +1180,7 @@ function renderReport(R){
   text.push(`    Yoga      : ${panB.yoga.en} (upto ${fmtH(panB.yogaEndH)})`);
   text.push(`    Karana    : ${panB.karana.en} (upto ${fmtH(panB.karanaEndH)})`);
   text.push(`    Sunrise   : ${fmtH(muh.sunrise)}  Sunset: ${fmtH(muh.sunset)}`);
-  text.push(`    Chandrashtama : ${muh.chandrashtama ? 'Yes — Moon in '+RASHI[muh.moonRasi].en : 'No'}`);
+  text.push(`    Chandrashtama : ${muh.chandrashtama ? 'Yes - Moon in '+RASHI[muh.moonRasi].en : 'No'}`);
 
   html += `<div class="rep">
     <div class="rep-block">
@@ -1192,7 +1192,7 @@ function renderReport(R){
       ${row('Karaṇa', devSpan(panB.karana.en, panB.karana.dev) + upto(panB.karanaEndH))}
       ${row('Sunrise', `${fmtH(muh.sunrise)}<small>sunset ${fmtH(muh.sunset)}</small>`)}
       ${row('Chandrāṣṭama', muh.chandrashtama
-          ? `<span class="flag">Yes — Moon in ${RASHI[muh.moonRasi].en}, 8th from the natal Moon</span><small>ends ${muh.csEnd ? fmtInTz(msOf(muh.csEnd), btz, false) : '—'}</small>`
+          ? `<span class="flag">Yes - Moon in ${RASHI[muh.moonRasi].en}, 8th from the natal Moon</span><small>ends ${muh.csEnd ? fmtInTz(msOf(muh.csEnd), btz, false) : '-'}</small>`
           : `<span class="good">No</span><small>Moon in ${RASHI[muh.moonRasi].en}<span class="dev">${RASHI[muh.moonRasi].dev}</span></small>`)}
     </div>
     <div class="rep-block">
@@ -1206,8 +1206,8 @@ function renderReport(R){
       ${row('Brahma muhūrta', fmtRange(muh.brahma[0],muh.brahma[1]))}
       ${row('Godhūli muhūrta', fmtRange(muh.godhuli[0],muh.godhuli[1]))}
       ${row('Durmuhūrtam', mark(muh.dur.map(w=>fmtRange(w[0],w[1])).join('  |  '), muh.inDur, false))}
-      ${row('Varjyam', muh.varj.length ? mark(muh.varj.map(w=>fmtRange(w[0],w[1])).join('  |  '), muh.inVarj, false) : '—')}
-      ${row('Amṛta kālam', muh.amrit[0]===null ? '—' : mark(fmtRange(muh.amrit[0],muh.amrit[1]), muh.inAmrit, true))}
+      ${row('Varjyam', muh.varj.length ? mark(muh.varj.map(w=>fmtRange(w[0],w[1])).join('  |  '), muh.inVarj, false) : '-')}
+      ${row('Amṛta kālam', muh.amrit[0]===null ? '-' : mark(fmtRange(muh.amrit[0],muh.amrit[1]), muh.inAmrit, true))}
       ${row('Chandrabalam', muh.cb.length ? muh.cb.map(c=>`${RASHI[c.rasi].en} upto ${fmtH(c.upto)}`).join('<br>') : 'not favourable today')}
     </div>
   </div>`;
@@ -1223,17 +1223,17 @@ function renderReport(R){
   text.push(`    Godhuli Muhurtha : ${fmtRange(muh.godhuli[0],muh.godhuli[1])}`);
   text.push(`    Durmuhurtam      : ${muh.dur.map(w=>fmtRange(w[0],w[1])).join(' | ')}`);
   text.push(`    Varjyam          : ${muh.varj.length ? muh.varj.map(w=>fmtRange(w[0],w[1])).join(' | ') : 'None'}`);
-  text.push(`    Amrit Kalam      : ${muh.amrit[0]===null?'—':fmtRange(muh.amrit[0],muh.amrit[1])}`);
+  text.push(`    Amrit Kalam      : ${muh.amrit[0]===null?'-':fmtRange(muh.amrit[0],muh.amrit[1])}`);
   text.push(`    Chandrabalam     : ${muh.cb.map(c=>RASHI[c.rasi].en+' upto '+fmtH(c.upto)).join(' | ') || 'not favourable today'}`);
 
   $('repBody').innerHTML = html;
   lastReport.text = text.join('\n');
-  lastReport.ics = { start: pvMs, summary:`Tithi Pravesha — ${name} (${panB.tithi.paksha} ${panB.tithi.en})` };
+  lastReport.ics = { start: pvMs, summary:`Tithi Pravesha - ${name} (${panB.tithi.paksha} ${panB.tithi.en})` };
 
   const natalGap = R.el0;
   makeSky($('skyA'), {
     maxDay: 60,
-    resetLabel: `Back to birth day — ${String(R.bdd).padStart(2,'0')} ${MON[R.bm-1]} ${R.by}`,
+    resetLabel: `Back to birth day - ${String(R.bdd).padStart(2,'0')} ${MON[R.bm-1]} ${R.by}`,
     natal: { sun: nat.sun, moon: nat.moon },
     asc: ascT,
     posFn: day => ({ sun: interp(R.suns, day, R.STEP), moon: interp(R.moons, day, R.STEP) }),
@@ -1244,9 +1244,9 @@ function renderReport(R){
       const sid = day > 20 && Math.abs(rev180(info.moon - nat.moon)) < 3;
       const syn = day > 20 && Math.abs(rev180(gap - natalGap)) < 2;
       if (day < 0.4) return `✦ <b>Birth sky</b> · ${pretty} · ${t0.paksha} ${t0.en} · Moon in ${n0.en} · Sun in ${RASHI[pv.r0].en}`;
-      if (sid && syn) return `✦ <b>Moon home AND birth tithi</b> — ${pretty} · a near-coincidence of both months`;
-      if (sid) return `✦ <b>Sidereal return (~27.3 d)</b> — ${pretty} · Moon back in ${n0.en}, the tithi has moved on`;
-      if (syn) return `✦ <b>Synodic return (~29.5 d)</b> — ${pretty} · the birth tithi is back, the Moon in a new mansion`;
+      if (sid && syn) return `✦ <b>Moon home AND birth tithi</b> - ${pretty} · a near-coincidence of both months`;
+      if (sid) return `✦ <b>Sidereal return (~27.3 d)</b> - ${pretty} · Moon back in ${n0.en}, the tithi has moved on`;
+      if (syn) return `✦ <b>Synodic return (~29.5 d)</b> - ${pretty} · the birth tithi is back, the Moon in a new mansion`;
       return `${pretty} · Moon in ${NAK[ni][0]} · Sun in ${RASHI[Math.floor(sun/30)].en} · ${info.tt.paksha} ${info.tt.en}`;
     }
   });
@@ -1272,7 +1272,7 @@ function mark(s, hot, good){
   return good ? `<span class="good">${s} ✓</span>` : `<span class="flag">${s} ⚠</span>`;
 }
 function verdict(m){
-  if (m.inAbhijit) return `<span class="good">✦ Falls inside Abhijit Muhūrta — very auspicious</span>`;
+  if (m.inAbhijit) return `<span class="good">✦ Falls inside Abhijit Muhūrta - very auspicious</span>`;
   const bad = [];
   if (m.inRahu) bad.push('Rāhu kālam');
   if (m.inGulika) bad.push('Gulika kālam');
@@ -1281,11 +1281,11 @@ function verdict(m){
   if (m.inVarj) bad.push('Varjyam');
   if (m.chandrashtama) bad.push('Chandrāṣṭama');
   if (bad.length) return `<span class="flag">⚠ Falls in ${bad.join(', ')}</span>`;
-  if (m.inAmrit) return `<span class="good">✦ Falls in Amṛta kālam — favourable</span>`;
-  return `Neutral — no doṣa window covers the moment`;
+  if (m.inAmrit) return `<span class="good">✦ Falls in Amṛta kālam - favourable</span>`;
+  return `Neutral - no doṣa window covers the moment`;
 }
 function verdictPlain(m){
-  if (m.inAbhijit) return 'Pravesha moment falls in Abhijit Muhurta — very auspicious';
+  if (m.inAbhijit) return 'Pravesha moment falls in Abhijit Muhurta - very auspicious';
   const bad = [];
   if (m.inRahu) bad.push('Rahu Kalam');
   if (m.inGulika) bad.push('Gulika Kalam');

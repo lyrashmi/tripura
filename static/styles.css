@@ -191,6 +191,8 @@ header h1 {
     letter-spacing: 0.06em;
     margin-bottom: 2px;
     opacity: 0.9;
+    position: relative;
+    top: 2px;
 }
 .ornament {
     display: flex;
@@ -445,6 +447,8 @@ textarea.dev-font {
     font-family: var(--font-dev);
     font-size: 1.18rem;
     line-height: 2.1;
+    position: relative;
+    top: 2px;
 }
 
 /* Bottom Bar */
@@ -970,6 +974,9 @@ input::placeholder {
 .dev {
     font-family: var(--font-dev);
     margin-inline-start: 0.5em;
+    position: relative;
+    top: 2px;
+    
 }
 .hero .tithi .dev {
     color: var(--terra);
@@ -1815,6 +1822,8 @@ input#searchInput::placeholder {
     line-height: 1.45;
     display: inline-block;
     vertical-align: baseline;
+    position: relative;
+    top: 2px;
 }
 .entry.cont .hw {
     font-size: 1.16rem;
@@ -1907,6 +1916,8 @@ input#searchInput::placeholder {
         font-size: 1.15rem;
         margin-left: 12px;
         padding-left: 12px;
+        position: relative;
+        top: 2px;
     }
     .entry.cont .hw-dev {
         font-size: 0.95rem;
@@ -1914,5 +1925,3 @@ input#searchInput::placeholder {
         padding-left: 10px;
     }
 }
-
-

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tithi Praveśa — Vedic Lunar Birthday Calculator</title>
-<!--# set var="asset_version" value="1.0.1" -->
+<title>Tithi Praveśa - Vedic Lunar Birthday Calculator</title>
+
 
 <!-- Night mode (must stay here to prevent white flash) -->
 <!--# include virtual="/includes/night-mode.html" -->
@@ -28,18 +28,18 @@
   </header>
 
   <div class="tabbar">
-    <button class="tab active" id="tabBtnCalc" type="button">
+    <button class="tab active" id="tabBtnFirst" type="button">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       Calculator
     </button>
-    <button class="tab" id="tabBtnLearn" type="button">
+    <button class="tab" id="tabBtnSecond" type="button">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
       Learn
     </button>
   </div>
 
   <!-- ══════════ CALCULATOR ══════════ -->
-  <div id="tabCalc">
+  <div id="tabFirst">
     <div class="panel pad" style="animation:rise .6s ease .06s both;">
       <div class="sec-head">
         <span class="num">I</span>
@@ -64,7 +64,7 @@
         <div class="field full" id="birthLoc"></div>
       </div>
 
-      <div class="subhead">Current residence · वर्तमान निवास</div>
+      <div class="subhead">Current residence</div>
       <label class="switch">
         <input type="checkbox" id="fUseCurr">
         <span class="track"><span class="knob"></span></span>
@@ -77,7 +77,7 @@
         </div>
       </div>
 
-      <div class="subhead">Target · संवत्सर</div>
+      <div class="subhead">Target</div>
       <div class="form-grid">
         <div class="field">
           <label for="fYear">Target year for Praveśa</label>
@@ -117,17 +117,17 @@
         </div>
         <p class="note">
           Positions are computed entirely in your browser from a truncated solar/lunar theory
-          (Meeus–Schlyter series, ≈1–2′ of arc) with the <b>Lahiri (Chitrapākṣa)</b> ayanāṃśa —
-          typically within 2–5 minutes of Swiss-Ephemeris timings for tithi and nakṣatra boundaries.
+          (Meeus-Schlyter series, ≈1-2′ of arc) with the <b>Lahiri (Chitrapākṣa)</b> ayanāṃśa -
+          typically within 2-5 minutes of Swiss-Ephemeris timings for tithi and nakṣatra boundaries.
           Muhūrta windows follow the classical tables of the Muhūrta Chintāmaṇi tradition, scaled to the
-          real sunrise–sunset span of the place.
+          real sunrise-sunset span of the place.
         </p>
       </div>
 
       <div class="panel pad" style="animation:rise .5s ease .06s both;">
         <div class="sec-head">
           <span class="num">II</span>
-          <span class="sec-title">The birth sky — drag forward in time</span>
+          <span class="sec-title">The birth sky - drag forward in time</span>
           <span class="sec-dev">जन्म आकाश</span>
           <span class="sec-rule"></span>
         </div>
@@ -135,8 +135,8 @@
           <div id="skyA"></div>
           <div class="sky-side">
             <h3>What you are watching <span class="dev">चक्र</span></h3>
-            <p>The outer ring is the twelve-fold <b>rāśi</b> circle with the natal Sun and Moon marked by dashed gold rings; the inner ring carries the twenty-seven <b>nakṣatra</b> mansions. The terracotta wedge at the centre is the living <b>tithi</b> — the angle from Sun to Moon — and it is exactly what the little Moon inset lights up.</p>
-            <p>Drag the slider forward. Near <b>day 27.3</b> the Moon returns to its natal mansion (sidereal return) but the tithi has drifted; near <b>day 29.5</b> the tithi returns but the Moon lodges elsewhere (synodic return). Only once a year do both line up — that is the Praveśa.</p>
+            <p>The outer ring is the twelve-fold <b>rāśi</b> circle with the natal Sun and Moon marked by dashed gold rings; the inner ring carries the twenty-seven <b>nakṣatra</b> mansions. The terracotta wedge at the centre is the living <b>tithi</b> - the angle from Sun to Moon - and it is exactly what the little Moon inset lights up.</p>
+            <p>Drag the slider forward. Near <b>day 27.3</b> the Moon returns to its natal mansion (sidereal return) but the tithi has drifted; near <b>day 29.5</b> the tithi returns but the Moon lodges elsewhere (synodic return). Only once a year do both line up - that is the Praveśa.</p>
             <div class="chips" id="skyChips"></div>
             <div class="legend">
               <span><i style="background:var(--gold-400)"></i>Sun</span>
@@ -151,7 +151,7 @@
   </div>
 
   <!-- ══════════ LEARN ══════════ -->
-  <div id="tabLearn" class="hidden">
+  <div id="tabSecond" class="hidden">
     <div class="panel pad" style="animation:rise .6s ease .06s both;">
       <div class="sec-head">
         <span class="num">✦</span>
@@ -160,7 +160,7 @@
         <span class="sec-rule"></span>
       </div>
       <p style="font-size:1.08rem;line-height:1.9;color:var(--ink-soft);margin-bottom:12px;">
-        Seen from Earth, the <strong>Sun</strong> traces one fixed circle through the stars each year — the
+        Seen from Earth, the <strong>Sun</strong> traces one fixed circle through the stars each year - the
         <em>ecliptic</em>. The <strong>Moon</strong> travels nearly the same road, about 13× faster. Every position on
         this circle is a mile-marker from 0° to 360°, and almost everything in the Pañcāṅga comes from just these
         two moving points and the angle between them.
@@ -172,8 +172,8 @@
       <div class="sky-grid">
         <div id="skyB"></div>
         <div class="sky-side">
-          <h3>One circle, three grids <span class="dev">एकं चक्रम्</span></h3>
-          <p>Twelve <b>rāśi</b> of 30° each give the solar year its bones. Twenty-seven <b>nakṣatra</b> of 13°20′ give the Moon a lodging for every night. And the <b>tithi</b> — the angle between the two luminaries divided by 12° — gives the lunar day its name.</p>
+          <h3><span class="sec-title">One circle, three grids</span></h3>
+          <p>Twelve <b>rāśi</b> of 30° each give the solar year its bones. Twenty-seven <b>nakṣatra</b> of 13°20′ give the Moon a lodging for every night. And the <b>tithi</b> - the angle between the two luminaries divided by 12° - gives the lunar day its name.</p>
           <p>Nothing here is symbolic decoration: each name is a statement about a measurable angle. That is why the calendar can be recomputed for any year, any place, from first principles.</p>
           <div class="chips">
             <span class="chip">rāśi · <b>30°</b></span>
@@ -198,40 +198,40 @@
       <div class="fold-body open" id="foldBody">
 
         <div class="learn-sec">
-          <div class="learn-title">Rāśi — the Sun's grid <span class="dev">राशि</span></div>
+          <div class="learn-title">Rāśi - the Sun's grid <span class="dev">राशि</span></div>
           <p>The circle is divided into <strong>12 equal arcs of 30°</strong>, each named for the constellation behind it
           (♈ Meṣa, ♉ Vṛṣabha, …). A rāśi is an <em>address</em>, not an object: “Sun in Mithuna” means its mile-marker lies
-          between 60° and 90°. The Sun crosses one rāśi per month — which is why there are twelve months. Twelve is where the
+          between 60° and 90°. The Sun crosses one rāśi per month - which is why there are twelve months. Twelve is where the
           solar and lunar rhythms meet: the Moon completes ~12 cycles while the Sun completes one.</p>
         </div>
 
         <div class="learn-sec">
-          <div class="learn-title">Nakṣatra — the Moon's grid <span class="dev">नक्षत्र</span></div>
-          <p>The same circle carries a finer grid of <strong>27 mansions of 13°20′</strong>, matched to the Moon's 27.3-day lap —
+          <div class="learn-title">Nakṣatra - the Moon's grid <span class="dev">नक्षत्र</span></div>
+          <p>The same circle carries a finer grid of <strong>27 mansions of 13°20′</strong>, matched to the Moon's 27.3-day lap -
           one lodging per night. Each is anchored to a real star (Rohiṇī = Aldebaran, Kṛttikā = the Pleiades, Chitrā = Spica).
           Your <em>janma nakṣatra</em> is simply the mansion the Moon occupied at your birth; each divides into 4 <em>pādas</em> of 3°20′.</p>
         </div>
 
         <div class="learn-sec">
-          <div class="learn-title">Tithi — the angle between them <span class="dev">तिथि</span></div>
+          <div class="learn-title">Tithi - the angle between them <span class="dev">तिथि</span></div>
           <p>A tithi is not a place but a <strong>relationship</strong>: the angle from Sun to Moon. At Amāvasyā the angle is 0°;
-          it grows ~12° per day, and each 12° slice is one tithi — 30 lunar days per cycle. At 180° the Moon is fully lit: Pūrṇimā.
+          it grows ~12° per day, and each 12° slice is one tithi - 30 lunar days per cycle. At 180° the Moon is fully lit: Pūrṇimā.
           The Moon's shape and the tithi are the same fact: the angle determines the phase. Because tithi is an angle, the elliptical
-          orbits' varying speeds are absorbed automatically — real tithis run ~19 to 26 hours.</p>
+          orbits' varying speeds are absorbed automatically - real tithis run ~19 to 26 hours.</p>
         </div>
 
         <div class="learn-sec">
-          <div class="learn-title">Pañcāṅga — the five limbs <span class="dev">पञ्चाङ्ग</span></div>
-          <p><em>Pañcāṅga</em> means <strong>five limbs</strong> — five readings of the same sky:
+          <div class="learn-title">Pañcāṅga - the five limbs <span class="dev">पञ्चाङ्ग</span></div>
+          <p><em>Pañcāṅga</em> means <strong>five limbs</strong> - five readings of the same sky:
           <strong>Tithi</strong> (Sun–Moon angle ÷ 12°), <strong>Vāra</strong> (weekday, sunrise to sunrise),
           <strong>Nakṣatra</strong> (the Moon's mansion), <strong>Yoga</strong> (the <em>sum</em> of Sun and Moon positions in
           27 divisions), and <strong>Karaṇa</strong> (half a tithi). Four of the five are pure Sun–Moon geometry.</p>
         </div>
 
         <div class="learn-sec">
-          <div class="learn-title">Tithi Praveśa — the lunar birthday <span class="dev">तिथिप्रवेश</span></div>
+          <div class="learn-title">Tithi Praveśa - the lunar birthday <span class="dev">तिथिप्रवेश</span></div>
           <p>A Hindu birthday is a <em>configuration</em>, not a date: your birth tithi recurring
-          <strong>while the Sun is back in its birth rāśi</strong>. The angle alone repeats every 29.5 days — but the combination
+          <strong>while the Sun is back in its birth rāśi</strong>. The angle alone repeats every 29.5 days - but the combination
           happens once a year, usually within a few days of the Gregorian birthday (twelve lunar months run ~11 days short of a
           solar year). That annual moment is what the Calculator tab finds.</p>
         </div>
@@ -239,11 +239,11 @@
         <div class="learn-sec">
           <div class="learn-title">References &amp; further reading</div>
           <ul class="refs">
-            <li>Jean Meeus, <em>Astronomical Algorithms</em> (Willmann-Bell) — the classic reference for Sun/Moon position mathematics.</li>
-            <li>Paul Schlyter, <em>How to compute planetary positions</em> — the truncated lunar series used here.</li>
-            <li>P.V.R. Narasimha Rao, <em>Vedic Astrology: An Integrated Approach</em> — includes the Tithi Praveśa technique and its use in annual charts.</li>
-            <li>Pt. Sanjay Rath — tradition and articles on Tithi Praveśa (srath.com).</li>
-            <li><em>Panchangam Calculations</em> — tables of Amṛta Ghaṭikā, Varjyam and Durmuhūrtam used for the muhūrta section.</li>
+            <li>Jean Meeus, <em>Astronomical Algorithms</em> (Willmann-Bell) - the classic reference for Sun/Moon position mathematics.</li>
+            <li>Paul Schlyter, <em>How to compute planetary positions</em> - the truncated lunar series used here.</li>
+            <li>P.V.R. Narasimha Rao, <em>Vedic Astrology: An Integrated Approach</em> - includes the Tithi Praveśa technique and its use in annual charts.</li>
+            <li>Pt. Sanjay Rath - tradition and articles on Tithi Praveśa (srath.com).</li>
+            <li><em>Panchangam Calculations</em> - tables of Amṛta Ghaṭikā, Varjyam and Durmuhūrtam used for the muhūrta section.</li>
           </ul>
           <p class="note">Sidereal positions use the Lahiri (Chitrapākṣa) ayanāṃśa. The teaching wheel above uses mean motions;
           the Calculator uses true ephemeris positions throughout.</p>
@@ -262,13 +262,13 @@
     <div class="modal-head">
       <div>
         <h4>Choose a place on OpenStreetMap</h4>
-        <div class="sub">Click the map or drag the pin — the timezone is detected automatically.</div>
+        <div class="sub">Click the map or drag the pin - the timezone is detected automatically.</div>
       </div>
       <button class="x-btn" id="mapClose" type="button" aria-label="Close">✕</button>
     </div>
     <div id="map"></div>
     <div class="modal-foot">
-      <span class="coords" id="mapCoords">—</span>
+      <span class="coords" id="mapCoords">-</span>
       <span style="display:flex;gap:10px;flex-wrap:wrap;">
         <button class="btn-ghost" id="mapSearch" type="button">Search a city…</button>
         <button class="btn-primary" id="mapUse" type="button" style="padding:10px 24px;font-size:.95rem;">Use this place</button>
