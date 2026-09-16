@@ -1,0 +1,202 @@
+/* CHANGED: :root added to beat the specificity tie with styles.css */
+:root[data-theme="dark"] {
+    --cream-bg: #16120e; --cream-deep: #1c1712; --card-bg: #231e18;
+    --input-bg: #2a241d; --output-bg: #231e18; --gold-100: #2a241d;
+    --gold-200: #3d3220; --gold-300: #5c4a28; --gold-400: #8a6512;
+    --gold-500: #d4af37; --gold-600: #e3c987; --gold-700: #f0dfa6;
+    --gold-800: #fffdf8; --ink: #e8dcc8; --ink-soft: #cbbba0;
+    --ink-muted: #9c8d6f; --line: rgba(212, 175, 55, 0.25);
+    --line-soft: rgba(212, 175, 55, 0.15); --line-strong: rgba(212, 175, 55, 0.45);
+    --shadow-card: 0 1px 2px rgba(0,0,0,0.3), 0 12px 40px rgba(0,0,0,0.5);
+    --shadow-soft: 0 2px 10px rgba(0,0,0,0.4);
+}
+[data-theme="dark"] body {
+    background: radial-gradient(1100px 520px at 50% -140px, rgba(212, 175, 55, 0.08), transparent 65%),
+                radial-gradient(900px 480px at 50% 115%, rgba(201, 151, 31, 0.06), transparent 70%),
+                linear-gradient(180deg, #1e1914 0%, var(--cream-bg) 45%, var(--cream-deep) 100%);
+}
+[data-theme="dark"] ::selection { background: rgba(212, 175, 55, 0.45); color: #1a1612; }
+[data-theme="dark"] ::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.35); }
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover { background: rgba(212, 175, 55, 0.55); }
+[data-theme="dark"] .tool-cta { color: #1a1612; background: linear-gradient(135deg, var(--gold-500), var(--gold-300)); }
+[data-theme="dark"] .tool-card:hover .tool-cta { box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3), inset 0 1px 0 rgba(255,255,255,0.2); }
+
+/* --- NEW FIXES FOR THE TITHI PAGE --- */
+[data-theme="dark"] .tab.active,
+[data-theme="dark"] .segbtn.active {
+    background: linear-gradient(135deg, var(--gold-300), var(--gold-200));
+    color: var(--ink);
+}
+[data-theme="dark"] .direction-label.active {
+    color: #1a1612; 
+    background: linear-gradient(135deg, var(--gold-500), var(--gold-300));
+    border-color: var(--gold-400);
+}
+[data-theme="dark"] .btn-primary {
+    color: #1a1612; 
+    background: linear-gradient(135deg, var(--gold-500), var(--gold-300));
+}
+[data-theme="dark"] .btn-primary:hover {
+    box-shadow: 0 8px 22px rgba(212, 175, 55, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+[data-theme="dark"] .swap-btn {
+    color: #1a1612;
+    background: linear-gradient(135deg, var(--gold-500), var(--gold-300));
+    box-shadow: 0 4px 14px rgba(212, 175, 55, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+[data-theme="dark"] .swap-btn:hover {
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* ═══════════ NEW FIXES FOR SKY WHEEL & MAP ═══════════ */
+
+/* Sky Wheel Container */
+[data-theme="dark"] .sky-frame {
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: var(--shadow-card);
+}
+
+/* 1. SVG Gradient Stops (Sun Core) */
+[data-theme="dark"] .sky-frame stop:nth-child(1) { stop-color: #fff5d1 !important; }
+[data-theme="dark"] .sky-frame stop:nth-child(2) { stop-color: var(--gold-500) !important; }
+[data-theme="dark"] .sky-frame stop:nth-child(3) { stop-color: var(--gold-300) !important; }
+
+/* 2. SVG Text Overrides (Targeting inline fills via attribute selectors) */
+[data-theme="dark"] .sky-frame svg text[fill="#8a6512"],
+[data-theme="dark"] .sky-frame svg text[fill="#a87d15"] { fill: var(--gold-500) !important; }
+[data-theme="dark"] .sky-frame svg text[fill="#9c8d6f"] { fill: var(--ink-soft) !important; }
+[data-theme="dark"] .sky-frame svg text[fill="#b4562f"] { fill: #e88a65 !important; }
+[data-theme="dark"] .sky-frame svg text[fill="#3b3020"] { fill: var(--ink) !important; }
+[data-theme="dark"] .sky-frame svg text[fill="#6b8e5a"] { fill: #8fc973 !important; }
+
+/* 3. SVG Shapes, Lines & Rays Overrides */
+[data-theme="dark"] .sky-frame svg line[stroke*="168,125,21"],
+[data-theme="dark"] .sky-frame svg circle[stroke*="168,125,21"] { stroke: var(--line-soft) !important; }
+[data-theme="dark"] .sky-frame svg circle[stroke="#b8860b"] { stroke: var(--gold-400) !important; }
+[data-theme="dark"] .sky-frame svg line[stroke="#6b8e5a"] { stroke: #8fc973 !important; }
+[data-theme="dark"] .sky-frame svg line[stroke="#d4af37"] { stroke: var(--gold-500) !important; }
+[data-theme="dark"] .sky-frame svg line[stroke="#8d8468"] { stroke: var(--ink-muted) !important; }
+
+/* Nakshatra Bands & Elongation Wedges */
+[data-theme="dark"] .sky-frame svg path[fill*="212,175,55"] { fill: rgba(212, 175, 55, 0.25) !important; stroke: var(--gold-400) !important; }
+[data-theme="dark"] .sky-frame svg path[fill*="180,86,47"] { fill: rgba(232, 138, 101, 0.2) !important; stroke: #e88a65 !important; }
+
+/* Sun & Moon Bodies */
+[data-theme="dark"] .sky-frame svg circle[stroke="#a87d15"] { stroke: var(--gold-400) !important; }
+[data-theme="dark"] .sky-frame svg circle[fill="#8d8468"] { fill: var(--ink-muted) !important; stroke: var(--line) !important; }
+[data-theme="dark"] .sky-frame svg circle[stroke="#6d5f45"] { stroke: var(--line-strong) !important; }
+[data-theme="dark"] .sky-frame svg path[fill="#fdf9ef"] { fill: var(--gold-100) !important; }
+
+/* Info Box Background */
+[data-theme="dark"] .sky-frame svg rect[fill*="253,249,239"] { fill: var(--card-bg) !important; stroke: var(--line) !important; }
+
+/* 4. Sky Wheel Controls & Layout */
+[data-theme="dark"] .sky-controls { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+[data-theme="dark"] .sky-controls input[type="range"] { accent-color: var(--gold-500); flex: 1; }
+[data-theme="dark"] .sky-val, [data-theme="dark"] .sky-stat { color: var(--ink-soft); font-size: 0.85rem; }
+[data-theme="dark"] .sky-btns { margin-top: 8px; }
+[data-theme="dark"] .sky-btns .btn-ghost {
+    background: var(--input-bg); color: var(--ink); border: 1px solid var(--line);
+    border-radius: 6px; padding: 6px 12px; cursor: pointer; transition: all 0.2s;
+}
+[data-theme="dark"] .sky-btns .btn-ghost:hover { background: var(--gold-100); border-color: var(--gold-500); }
+
+/* ═══════════ MAP MODAL DARK MODE ═══════════ */
+/* Invert standard OSM tiles to dark mode while preserving normal marker colors */
+[data-theme="dark"] #map { filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.9); }
+[data-theme="dark"] #map .leaflet-marker-icon,
+[data-theme="dark"] #map .leaflet-popup-content-wrapper,
+[data-theme="dark"] #map .leaflet-popup-tip,
+[data-theme="dark"] #map .leaflet-control { filter: invert(1) hue-rotate(180deg) brightness(1.1) contrast(1.1); }
+
+/* Modal Wrapper & Inputs */
+[data-theme="dark"] #mapModal { background: rgba(0, 0, 0, 0.85) !important; }
+[data-theme="dark"] #mapModal .modal-dialog,
+[data-theme="dark"] #mapModal > div:not(#map):not(.leaflet-container) {
+    background: var(--card-bg) !important; color: var(--ink) !important;
+    border: 1px solid var(--line) !important; box-shadow: var(--shadow-card) !important;
+}
+[data-theme="dark"] #mapCoords { color: var(--ink-soft) !important; }
+[data-theme="dark"] #mapClose, [data-theme="dark"] #mapUse, [data-theme="dark"] #mapSearch {
+    background: var(--input-bg) !important; color: var(--ink) !important;
+    border: 1px solid var(--line) !important; border-radius: 6px; padding: 8px 16px;
+    cursor: pointer; transition: all 0.2s;
+}
+[data-theme="dark"] #mapUse:hover, [data-theme="dark"] #mapSearch:hover {
+    background: var(--gold-100) !important; border-color: var(--gold-500) !important;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    position: fixed; top: 28px; right: 24px; background: var(--card-bg);
+    border: 1px solid var(--line); border-radius: 50%; width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    color: var(--gold-600); box-shadow: var(--shadow-soft); transition: all 0.3s ease; z-index: 100;
+}
+.theme-toggle:hover { transform: translateY(-2px) scale(1.05); border-color: var(--line-strong); }
+[data-theme="dark"] .theme-toggle { color: var(--gold-400); }
+.theme-toggle svg { position: absolute; transition: opacity 0.3s ease, transform 0.3s ease; }
+.icon-sun { opacity: 1; transform: rotate(0); }
+.icon-moon { opacity: 0; transform: rotate(90deg); }
+[data-theme="dark"] .icon-sun { opacity: 0; transform: rotate(-90deg); }
+[data-theme="dark"] .icon-moon { opacity: 1; transform: rotate(0); }
+
+
+
+/* ═══════════ SECTION TITLES ═══════════ */
+[data-theme="dark"] .sec-title {
+    color: var(--ink-soft) !important; 
+}
+
+/* ══════════ Māheśvara Sūtras Night Mode Fixes ══════════ */
+
+/* 1. Active/Selected States (Overrides inline styles set by JS) */
+.glyph-member.ms-highlighted {
+    background: linear-gradient(135deg, #fdf6e3, var(--gold-100)) !important;
+    border-color: var(--gold-400) !important;
+    box-shadow: var(--shadow-soft) !important;
+    color: var(--gold-800) !important;
+    transform: translateY(-2px) !important;
+}
+
+.entry.ms-selected {
+    background: linear-gradient(135deg, #fdf6e3, var(--gold-100)) !important;
+    border-color: var(--line-strong) !important;
+    box-shadow: var(--shadow-soft) !important;
+}
+
+/* 2. Dark Mode Overrides */
+[data-theme="dark"] .glyph-member.ms-highlighted {
+    background: linear-gradient(135deg, var(--gold-300), var(--gold-200)) !important;
+    border-color: var(--gold-400) !important;
+    color: var(--gold-800) !important;
+}
+
+[data-theme="dark"] .entry.ms-selected {
+    background: linear-gradient(135deg, var(--gold-300), var(--gold-200)) !important;
+    border-color: var(--gold-400) !important;
+    color: var(--ink) !important;
+}
+
+[data-theme="dark"] .entry.ms-selected .hw {
+    color: var(--ink) !important;
+}
+
+[data-theme="dark"] .entry.ms-selected .hw-dev {
+    color: var(--ink-soft) !important;
+}
+
+/* The it-markers use --terra which isn't defined in dark mode, so we fallback to gold */
+[data-theme="dark"] .glyph-it {
+    color: var(--gold-500) !important;
+    border-color: rgba(212, 175, 55, 0.4) !important;
+}
+
+/* Banner dark mode fallback */
+[data-theme="dark"] #detail-banner {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--line) !important;
+}
