@@ -87,22 +87,31 @@
     lettersWrap.style.gap = '8px';
     lettersWrap.style.alignItems = 'center';
 
-    s.members.forEach(function(m){
+        s.members.forEach(function(m){
       var span = document.createElement('span');
       span.className = 'glyph-member dev'; 
       span.style.margin = '0';
-      span.style.padding = '6px 12px';
+      
+      // ─── THE FIX: Asymmetrical Padding & Line-Height ───
+      span.style.padding = '10px 12px 4px 12px'; // Extra padding on TOP to push ink down
+      span.style.lineHeight = '1'; // Kill line-height so it doesn't fight the padding
+      
+      // Use flexbox internally to guarantee vertical centering of the glyph
+      span.style.display = 'inline-flex';
+      span.style.alignItems = 'center';
+      span.style.justifyContent = 'center';
+      // ──────────────────────────────────────────────────
+
       span.style.borderRadius = '8px'; 
       span.style.background = 'var(--output-bg)';
       span.style.border = '1px solid var(--line-soft)';
       span.style.fontSize = '1.35rem';
       span.style.fontFamily = 'var(--font-dev)';
-      span.style.lineHeight = '1.2';
       span.style.color = 'var(--ink)';
       span.style.transition = 'all 0.25s ease';
       span.style.cursor = 'default';
-      span.style.letterSpacing = 'normal'; // Prevent inheritance
-      
+      span.style.letterSpacing = 'normal';
+
       span.dataset.sutra = s.id;
       span.dataset.role = 'member';
       span.dataset.letter = m;
