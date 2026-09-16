@@ -1,0 +1,93 @@
+d274426 Vertical maatra alignment fix
+b1bd3d8 Vertical maatra alignment fix
+56d5f8f Modularisation of scripts and stylesheets for performance; finetuned descriptions an footer
+986ae7f Modularisation of scripts and stylesheets for performance; finetuned descriptions an footer
+6e8eefb Footer fix
+d9017ff Added maheshvara sutras to kosha as include and performed night-mode fixes and updates to the sky wheel and titles
+3d8c4d4 Added force refresh cache functionality for styles.css
+1a71b4e Added force refresh cache functionality for styles.css
+9f1c1fd Added ui-logic includes
+18b8bb1 Wording title
+a91d5fd Wording
+4781998 Adjusted menu items
+6fc7bdd Added favicons
+b9262d2 Added favicons
+e524484 Added favicons
+22fb3d4 Added favicons
+fb324bd Styles load order
+e8ef0cd Improved font loading performance
+d0d8f2f Improved font loading performance
+771ffdb Styles preloading fix
+2d737c1 Styles preloading fix
+db77eca Added head-assets include for faster styles preloading
+9f6fc0b Add font files
+b5d3cf0 Fixed night-mode display bug
+da2d33a Fixed night-mode display bug
+bb762fb Added local font hosting
+ea8bfdc Added local font hosting
+b344a44 Enhance README with Tripura deployment instructions
+d7d6659 Revise caching and compression sections in README
+2890ad3 Revise caching and Nginx configuration details in README
+e90dca7 Revise file compression and cache control instructions
+02376e5 Enhance README with SSI and nginx reload instructions
+0f3cbad Update README with SSI configuration details
+1a97ed7 Update README.md
+c7849ed Clarify node.js and npm requirement for SEO scripts
+07d47ae Improve command formatting in README.md
+7e141f2 Add deployment and caching instructions to README
+4cf4b21 Fix cache-control emphasis and typo in README
+e769298 Update cache-control check instruction in README
+41eb643 Fix header formatting in README.md
+15e43cb Revise caching instructions in README
+fae7635 Update headers and formatting in README.md
+33f7a2a Fix formatting and enhance caching instructions in README
+40f48fc Revise caching and compression instructions in README
+af2d3b1 Update README with caching and compression instructions
+6c9c554 Update README with Nginx caching and compression instructions
+46f22f0 Static and includes update
+93d76e0 Container update
+4d2ddb2 Char fix
+636d13b Added style.css and started caching static style folder
+2d2f9ea Fixed footer vertical alignment
+ce95e14 Fixed font mismatch
+5ecbab1 Fixed font mismatch
+873bd65 Fixed font mismatch
+ec639dd Added devanagari to dictionary search results
+a0e604e seperated transliteration engine into include
+bb6b90f seperated transliteration engine as include
+898a17b rm index update script
+8f40489 Added index update script
+1b74429 Added index update script
+2ea653b Added index update script
+f864e06 Added text update script
+f1a81c2 Added text update script
+e1618c5 Translit inline addition update
+6e43bcd Sitemap build updated
+228a296 Node_JS transliteration update
+014333c Node_JS transliteration update
+72e0b70 Transliteration bug fix
+d855ada Crazy SEO things
+403de13 flip button fix
+8c70753 char fix
+5e29bc0 dark-mode bug fix
+bb0b34d added dark-mode includes
+b1d3b63 fixes
+4adb573 wording
+605ea08 wording
+53d62c9 footer adjustments
+029fde3 wording
+49a62c8 wording
+d90a910 wording
+ec6a479 wording
+103766e untrial
+586684c trial2
+3eb1681 trial2
+a851601 trial
+b357605 Html routing
+df4e4c4 Html routing
+7c56c21 Add GitHub Actions auto-deploy workflow
+363b99c Html index routing
+143d644 Updated links, and fixed formatting
+cc38a20 Added monier-williams dictionary
+23209b7 Ignore .history and .DS_Store
+253a8d1 Initial website commit

@@ -935,7 +935,7 @@ $('mapSearch').addEventListener('click', async () => {
 /* ══════════════ WIRING ══════════════ */
 const birthLoc = buildLoc($('birthLoc'), {
   label:'Birth place',
-  ph:'e.g. Chennai, or “Rishikesh',
+  ph:'e.g. Chennai, or Rishikesh',
   defaultTz:'Asia/Kolkata',
   hint:'Type any town - it is matched against the built-in gazetteer, then OpenStreetMap. The timezone follows the place.'
 });
