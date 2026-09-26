@@ -1,5 +1,8 @@
 # 🚀 Tripura Deployment Guide
 
+https://tripura.io
+
+
 This guide covers the Nginx server configuration required to deploy tripura.io on a Debian based VPS, optimised for performance, caching, and Server-Side Includes (SSI).
 
 ## 📋 Prerequisites
